@@ -1,3 +1,36 @@
 page-login {
-
+    .img-container{
+        width: 100%;
+        text-align: center;
+        background: none;
+        
+        .img-ion{
+            width:80px;
+            height:80px;
+            background: none;
+        }
+    }
+    .login-form-container{
+        width: 80%;
+        margin: 0 auto;
+        background: #fff;   
+        padding: 10px;         
+    }
+    .item-md{
+        padding-left: 0;
+    }
+    .button-login{
+        display: block;
+        margin: 0 auto;
+    }
+    .button-register{
+        display: block;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding: 12px;
+        white-space: normal;
+    }
+    .scroll-content{
+        background: #ebebeb;
+    }
 }
