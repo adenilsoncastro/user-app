@@ -25750,3 +25750,18 @@ page-register .ios page-home .invalid,
 page-register .md page-home .invalid {
   border: 1px solid #ea6153;
 }
+
+page-register .car-info, page-register .user-info {
+  margin: 10px;
+  border: solid 1px #ebebeb;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+page-register .car-info .car-info-title, page-register .car-info .user-info-title, page-register .user-info .car-info-title, page-register .user-info .user-info-title {
+  font-weight: bold;
+}
+
+page-register .item-md {
+  padding-left: 0;
+}
