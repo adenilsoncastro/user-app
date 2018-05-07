@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-})
+})  
 
 export class RegisterPage {
 
@@ -18,19 +18,19 @@ export class RegisterPage {
     public navParams: NavParams,
     private fb: FormBuilder) {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required,]],
-      passwordConfirmation: ['', [Validators.required]],
-      marca: ['', Validators.required],
-      modelo: ['', Validators.required],
-      placa: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
+      password: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
+      passwordConfirmation: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
+      marca: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
+      modelo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
+      placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8)]],
     })
   }
 
   comparePasswords() {
-    if(!this.form)
+    if (!this.form)
       return false;
     return this.form.controls['password'].value == this.form.controls['passwordConfirmation'].value
   }
