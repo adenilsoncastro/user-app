@@ -1,12 +1,24 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-  <p>Cancela automática</p>
+  
+  <!-- <button ion-button secondary (click)= "onClick()">Navigate</button> -->
+  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Login</ion-label>
+      <ion-input [(ngModel)]="loginModel.username" type="text"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Senha</ion-label>
+      <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>
+    </ion-item>
+  
+  </ion-list>
+  
+  <div padding>
+    <button [disabled]="!isFormValid()" (click)= "loginClick()" ion-button>Sign In</button>
+    <button (click)="registerClick()">Não é registrado? Clique aqui!</button>
+  </div>
 </ion-content>

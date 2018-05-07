@@ -25677,3 +25677,36 @@ ion-navbar.toolbar {
   min-height: calc(46px + constant(safe-area-inset-bottom));
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
+
+page-register .ios page-home p,
+page-register .md page-home p {
+  font-size: 0.8em;
+  color: #d2d2d2;
+}
+
+page-register .ios page-home .swiper-slide,
+page-register .md page-home .swiper-slide {
+  display: block;
+}
+
+page-register .ios page-home ion-label,
+page-register .ios page-home .select-text,
+page-register .md page-home ion-label,
+page-register .md page-home .select-text {
+  margin-left: 10px;
+}
+
+page-register .ios page-home ion-input,
+page-register .ios page-home ion-select,
+page-register .ios page-home ion-textarea,
+page-register .md page-home ion-input,
+page-register .md page-home ion-select,
+page-register .md page-home ion-textarea {
+  background-color: #f2f2f2;
+  padding: 5px 10px;
+}
+
+page-register .ios page-home .invalid,
+page-register .md page-home .invalid {
+  border: 1px solid #ea6153;
+}

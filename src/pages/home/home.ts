@@ -23,6 +23,9 @@ export class HomePage {
     debugger;
     console.log(this.login);
     console.log(this.password);
+
+    this.login = "TRESTE";
+
   }
 
 }
