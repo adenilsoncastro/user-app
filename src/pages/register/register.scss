@@ -24,4 +24,16 @@ page-register {
       }
     }
   }
+  .car-info, .user-info{
+    margin: 10px;
+    border: solid 1px #ebebeb;
+    padding: 10px;
+    border-radius: 5px;
+    .car-info-title, .user-info-title{
+      font-weight: bold;
+    }
+  }
+  .item-md{
+    padding-left: 0;
+  }
 }

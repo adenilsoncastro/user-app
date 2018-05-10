@@ -1,24 +1,24 @@
 <ion-content padding>
-  
-  <!-- <button ion-button secondary (click)= "onClick()">Navigate</button> -->
-  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
 
-  <ion-list>
-
-    <ion-item>
-      <ion-label>Login</ion-label>
-      <ion-input [(ngModel)]="loginModel.username" type="text"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Senha</ion-label>
-      <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>
-    </ion-item>
-  
-  </ion-list>
-  
-  <div padding>
-    <button [disabled]="!isFormValid()" (click)= "loginClick()" ion-button>Sign In</button>
-    <button (click)="registerClick()">Não é registrado? Clique aqui!</button>
+  <div class="login-form-container">
+    <ion-list>
+      <ion-item>
+        <div class="img-container">
+          <ion-img class="img-ion" src="assets/imgs/login_user.png"></ion-img>
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label>Login</ion-label>
+        <ion-input autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Senha</ion-label>
+        <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button class="button-login"  [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>
+      <button class="button-register"  ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>
+    </div>
   </div>
 </ion-content>

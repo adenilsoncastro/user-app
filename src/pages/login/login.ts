@@ -37,6 +37,9 @@ export class LoginPage {
       const expirationDate = this._jwtHelper.getTokenExpirationDate(res.token);
       const isExpired = this._jwtHelper.isTokenExpired(res.token);
 
+      this.loginModel = new LoginModel();
+      this.loginModel.username = "";
+      this.loginModel.password = "";
       this._storage.set('token', res.token);
 
       let toast = this._toast.create({
@@ -44,6 +47,8 @@ export class LoginPage {
         duration: 3000,
         position: 'bottom'
       }).present();
+      
+      this.navCtrl.push(HomePage);
 
     }, error => {
       console.log(error);

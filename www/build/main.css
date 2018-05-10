@@ -25678,6 +25678,46 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+page-login .img-container {
+  width: 100%;
+  text-align: center;
+  background: none;
+}
+
+page-login .img-container .img-ion {
+  width: 80px;
+  height: 80px;
+  background: none;
+}
+
+page-login .login-form-container {
+  width: 80%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 10px;
+}
+
+page-login .item-md {
+  padding-left: 0;
+}
+
+page-login .button-login {
+  display: block;
+  margin: 0 auto;
+}
+
+page-login .button-register {
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 12px;
+  white-space: normal;
+}
+
+page-login .scroll-content {
+  background: #ebebeb;
+}
+
 page-register .ios page-home p,
 page-register .md page-home p {
   font-size: 0.8em;
@@ -25709,4 +25749,19 @@ page-register .md page-home ion-textarea {
 page-register .ios page-home .invalid,
 page-register .md page-home .invalid {
   border: 1px solid #ea6153;
+}
+
+page-register .car-info, page-register .user-info {
+  margin: 10px;
+  border: solid 1px #ebebeb;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+page-register .car-info .car-info-title, page-register .car-info .user-info-title, page-register .user-info .car-info-title, page-register .user-info .user-info-title {
+  font-weight: bold;
+}
+
+page-register .item-md {
+  padding-left: 0;
 }

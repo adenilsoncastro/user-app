@@ -1,32 +1,19 @@
 <ion-header>
-  <!-- <ion-navbar>
+  <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
-  </ion-navbar> -->
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
-  <button ion-button secondary (click)= "onClick()">Navigate</button>
-  <button ion-button secondary menuToggle>Toggle Menu</button>
 
-  <ion-list>
-
-    <ion-item>
-      <ion-label>Login</ion-label>
-      <ion-input [(ngModel)]="login" type="text"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Senha</ion-label>
-      <ion-input [(ngModel)]="password" type="password"></ion-input>
-    </ion-item>
-  
-  </ion-list>
-  
   <div padding>
-    <button (click)= "loginClick()" ion-button>Sign In</button>
+    <button class="button-login" (click)="logout()" ion-button>Logout</button>
+    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>
   </div>
+
+  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}
+
 </ion-content>

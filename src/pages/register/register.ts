@@ -1,13 +1,15 @@
+import { UserProvider } from './../../providers/user/user';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-})  
+  providers: [UserProvider]
+})
 
 export class RegisterPage {
 
@@ -16,7 +18,9 @@ export class RegisterPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private toast: ToastController,
+    private userProvider: UserProvider) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +40,19 @@ export class RegisterPage {
   }
 
   registerClick() {
-
+    this.userProvider.register(this.user).subscribe(res => {
+      this.toast.create({
+        message: 'Usuário criado com sucesso',
+        duration: 3000,
+        position: 'bottom'
+      }).present();
+    }, error => {
+      this.toast.create({
+        message: error.error.text,
+        duration: 3000,
+        position: 'bottom'
+      }).present();
+    })
   }
 
   goBackClick() {

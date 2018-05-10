@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { RegisterPage } from './register';
@@ -11,5 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicPageModule.forChild(RegisterPage),
     ReactiveFormsModule
   ],
+  providers: [
+    UserProvider
+  ]
 })
 export class RegisterPageModule {}
