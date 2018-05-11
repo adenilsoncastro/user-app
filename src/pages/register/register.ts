@@ -41,11 +41,27 @@ export class RegisterPage {
 
   registerClick() {
     this.userProvider.register(this.user).subscribe(res => {
-      this.toast.create({
-        message: 'Usuário criado com sucesso',
-        duration: 3000,
-        position: 'bottom'
-      }).present();
+      if (res.success == false) {
+
+        res.error.forEach(element => {
+          this.toast.create({
+            message: element.msg,
+            duration: 3000,
+            position: 'bottom'
+          }).present();      
+        });
+        
+      } else {
+        this.toast.create({
+          message: 'Usuário criado com sucesso',
+          duration: 3000,
+          position: 'bottom'
+        }).present()
+        .then(() => {
+          this.goBackClick();      
+        });
+      }
+      console.log(res);
     }, error => {
       this.toast.create({
         message: error.error.text,
@@ -57,10 +73,6 @@ export class RegisterPage {
 
   goBackClick() {
     this.navCtrl.pop();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
   }
 
 }
