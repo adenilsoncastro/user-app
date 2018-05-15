@@ -7,6 +7,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { QrcodePage } from '../pages/qrcode/qrcode'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,6 +15,7 @@ import { LoginProvider } from '../providers/login/login';
 import { IonicStorageModule } from '@ionic/storage';
 import { RegisterPage } from '../pages/register/register';
 import { JwtModule } from '@auth0/angular-jwt';
+import { QRCodeModule } from 'angular2-qrcode';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -25,7 +27,8 @@ export function tokenGetter() {
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    QrcodePage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ export function tokenGetter() {
       }
     }),
     HttpClientModule,
-    IonicStorageModule
+    IonicStorageModule,
+    QRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +51,8 @@ export function tokenGetter() {
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    QrcodePage
   ],
   providers: [
     StatusBar,

@@ -25691,7 +25691,7 @@ page-login .img-container .img-ion {
 }
 
 page-login .login-form-container {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   background: #fff;
   padding: 10px;
@@ -25716,6 +25716,18 @@ page-login .button-register {
 
 page-login .scroll-content {
   background: #ebebeb;
+}
+
+page-qrcode .qr-code-container {
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  display: table;
+}
+
+page-qrcode .qr-code-container .qr-code {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 page-register .ios page-home p,
