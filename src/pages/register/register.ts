@@ -40,6 +40,7 @@ export class RegisterPage {
   }
 
   registerClick() {
+    debugger
     this.userProvider.register(this.user).subscribe(res => {
       if (res.success == false) {
 
@@ -52,6 +53,7 @@ export class RegisterPage {
         });
         
       } else {
+        debugger
         this.toast.create({
           message: 'Usuário criado com sucesso',
           duration: 3000,

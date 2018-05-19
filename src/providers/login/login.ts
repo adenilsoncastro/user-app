@@ -11,7 +11,7 @@ export class LoginProvider {
   constructor(public http: HttpClient) { }
 
   login(login: LoginModel) {
-    return this.http.post<any>('http://localhost:8080/users/login', { username: login.username, password: login.password });
+    return this.http.post<any>('http://localhost:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
   }
 
 }

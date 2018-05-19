@@ -32,7 +32,6 @@ export class LoginPage {
 
   loginClick() {
     this._loginProvider.login(this.loginModel).subscribe(res => {
-      
       const decodedToken = this._jwtHelper.decodeToken(res.token);
       const expirationDate = this._jwtHelper.getTokenExpirationDate(res.token);
       const isExpired = this._jwtHelper.isTokenExpired(res.token);
@@ -40,6 +39,7 @@ export class LoginPage {
       this.loginModel = new LoginModel();
       this.loginModel.username = "";
       this.loginModel.password = "";
+      this.loginModel.usertype = 1;
       this._storage.set('token', res.token);
 
       let toast = this._toast.create({

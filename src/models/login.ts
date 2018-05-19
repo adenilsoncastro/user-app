@@ -1,8 +1,10 @@
-export class LoginModel{
+export class LoginModel {
 
-    constructor(){
+    constructor() {
+        this.usertype = 1;
     }
 
     public username: string;
-    public password: string
+    public password: string;
+    public usertype: Number;
 }

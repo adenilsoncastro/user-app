@@ -117,6 +117,7 @@ var LoginPage = /** @class */ (function () {
             _this.loginModel = new __WEBPACK_IMPORTED_MODULE_3__models_login__["a" /* LoginModel */]();
             _this.loginModel.username = "";
             _this.loginModel.password = "";
+            _this.loginModel.usertype = 1;
             _this._storage.set('token', res.token);
             var toast = _this._toast.create({
                 message: 'Autenticação realizada com sucesso! Bem vindo(a), ' + decodedToken.user.name,
@@ -151,14 +152,10 @@ var LoginPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["m" /* Component */])({
             selector: 'page-login',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\login\login.html"*/'<ion-content padding>\n\n\n\n  <div class="login-form-container">\n\n    <ion-list>\n\n      <ion-item>\n\n        <div class="img-container">\n\n          <ion-img class="img-ion" src="assets/imgs/login_user.png"></ion-img>\n\n        </div>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Login</ion-label>\n\n        <ion-input autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Senha</ion-label>\n\n        <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>\n\n      </ion-item>\n\n    </ion-list>\n\n    <div padding>\n\n      <button class="button-login"  [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>\n\n      <button class="button-register"  ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>\n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\login\login.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */],
-            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _f || Object])
     ], LoginPage);
     return LoginPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=login.js.map
@@ -215,6 +212,7 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage.prototype.registerClick = function () {
         var _this = this;
+        debugger;
         this.userProvider.register(this.user).subscribe(function (res) {
             if (res.success == false) {
                 res.error.forEach(function (element) {
@@ -226,6 +224,7 @@ var RegisterPage = /** @class */ (function () {
                 });
             }
             else {
+                debugger;
                 _this.toast.create({
                     message: 'Usuário criado com sucesso',
                     duration: 3000,
@@ -285,13 +284,14 @@ var LoginProvider = /** @class */ (function () {
         this.http = http;
     }
     LoginProvider.prototype.login = function (login) {
-        return this.http.post('http://localhost:8080/users/login', { username: login.username, password: login.password });
+        return this.http.post('http://localhost:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
     };
     LoginProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object])
     ], LoginProvider);
     return LoginProvider;
+    var _a;
 }());
 
 //# sourceMappingURL=login.js.map
@@ -325,6 +325,7 @@ webpackEmptyAsyncContext.id = 119;
 var User = /** @class */ (function () {
     function User() {
         this.car = new __WEBPACK_IMPORTED_MODULE_0__car__["a" /* Car */]();
+        this.usertype = 1;
     }
     return User;
 }());
@@ -588,6 +589,7 @@ var Car = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginModel; });
 var LoginModel = /** @class */ (function () {
     function LoginModel() {
+        this.usertype = 1;
     }
     return LoginModel;
 }());
