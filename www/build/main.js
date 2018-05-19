@@ -43,6 +43,7 @@ var HomePage = /** @class */ (function () {
             var decodedToken = _this._jwtHelper.decodeToken(val);
             if (decodedToken.user)
                 _this.user = decodedToken.user;
+            debugger;
         });
     };
     HomePage.prototype.logout = function () {
@@ -54,13 +55,12 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Home</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <div padding>\n\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n\n  </div>\n\n\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div padding>\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n  </div>\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_3__auth0_angular_jwt__["a" /* JwtHelperService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _c || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -114,6 +114,16 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.loginClick = function () {
         var _this = this;
         this._loginProvider.login(this.loginModel).subscribe(function (res) {
+            if (res.success == false) {
+                res.error.forEach(function (element) {
+                    _this._toast.create({
+                        message: element.msg,
+                        duration: 3000,
+                        position: 'bottom'
+                    }).present();
+                });
+                return;
+            }
             var decodedToken = _this._jwtHelper.decodeToken(res.token);
             var expirationDate = _this._jwtHelper.getTokenExpirationDate(res.token);
             var isExpired = _this._jwtHelper.isTokenExpired(res.token);
@@ -153,7 +163,7 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\login\login.html"*/'<ion-content padding>\n\n\n\n  <div class="login-form-container">\n\n    <ion-list>\n\n      <ion-item>\n\n        <div class="img-container">\n\n          <ion-img class="img-ion" src="assets/imgs/login_user.png"></ion-img>\n\n        </div>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Login</ion-label>\n\n        <ion-input autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Senha</ion-label>\n\n        <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>\n\n      </ion-item>\n\n    </ion-list>\n\n    <div padding>\n\n      <button class="button-login"  [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>\n\n      <button class="button-register"  ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>\n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\login\login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\login\login.html"*/'<ion-content padding>\n\n\n\n  <div class="login-form-container">\n\n    <ion-list>\n\n      <ion-item>\n\n        <div class="img-container">\n\n          <ion-img class="img-ion" src="assets/imgs/login_user.png"></ion-img>\n\n        </div>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Login</ion-label>\n\n        <ion-input autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Senha</ion-label>\n\n        <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>\n\n      </ion-item>\n\n    </ion-list>\n\n    <div padding>\n\n      <button class="button-login"  [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>\n\n      <button class="button-register"  ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>\n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\login\login.html"*/,
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _f || Object])
     ], LoginPage);
@@ -205,7 +215,7 @@ var RegisterPage = /** @class */ (function () {
             passwordConfirmation: ['', [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].maxLength(150)]],
             marca: ['', [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].maxLength(150)]],
             modelo: ['', [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].maxLength(150)]],
-            placa: ['', [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].maxLength(8)]],
+            placa: ['', [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].maxLength(8), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].pattern(/[a-z]{3}-?\d{4}/)]],
         });
     }
     RegisterPage.prototype.comparePasswords = function () {
@@ -217,6 +227,7 @@ var RegisterPage = /** @class */ (function () {
         var _this = this;
         debugger;
         this.userProvider.register(this.user).subscribe(function (res) {
+            debugger;
             if (res.success == false) {
                 res.error.forEach(function (element) {
                     _this.toast.create({
@@ -227,7 +238,6 @@ var RegisterPage = /** @class */ (function () {
                 });
             }
             else {
-                debugger;
                 _this.toast.create({
                     message: 'Usuário criado com sucesso',
                     duration: 3000,
@@ -251,16 +261,13 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\register\register.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Register</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <form [formGroup]="form">\n\n    <ion-list>\n\n      <div class="user-info">\n\n        <div class="user-info-title">\n\n          <span>Informações do Usuário</span>\n\n        </div>\n\n        <ion-item>\n\n          <ion-label>Nome</ion-label>\n\n          <ion-input [(ngModel)]="user.name" formControlName="name" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'name\'].errors && form.controls[\'name\'].dirty" color="danger">O Nome é obrigatório</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Email</ion-label>\n\n          <ion-input [(ngModel)]="user.email" formControlName="email" type="email"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'email\'].errors && form.controls[\'email\'].dirty" color="danger">O Email está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Login</ion-label>\n\n          <ion-input [(ngModel)]="user.username" s formControlName="username" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'username\'].errors && form.controls[\'username\'].dirty" color="danger">O Nome de usuário inválido</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Senha</ion-label>\n\n          <ion-input [(ngModel)]="user.password" formControlName="password" type="password"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'password\'].errors && form.controls[\'password\'].dirty" color="danger"> Email está incorreto </ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Confirmar Senha</ion-label>\n\n          <ion-input [(ngModel)]="user.passwordConfirmation" formControlName="passwordConfirmation" type="password"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'passwordConfirmation\'].errors && form.controls[\'passwordConfirmation\'].dirty" color="danger">Senha de confirmação está inválida</ion-label>\n\n      </div>\n\n\n\n      <div class="car-info">\n\n        <div class="car-info-title">\n\n          <span>Informações do Veículo</span>\n\n        </div>\n\n        <ion-item>\n\n          <ion-label>Marca</ion-label>\n\n          <ion-input [(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'marca\'].errors && form.controls[\'marca\'].dirty" color="danger"> A marca está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Modelo</ion-label>\n\n          <ion-input [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'modelo\'].errors && form.controls[\'modelo\'].dirty" color="danger">O modelo está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Placa</ion-label>\n\n          <ion-input [(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'placa\'].errors && form.controls[\'placa\'].dirty" color="danger">A placa está inválida</ion-label>\n\n      </div>\n\n    </ion-list>\n\n\n\n    <div padding>\n\n      <button [disabled]="!form.valid || !comparePasswords()" (click)="registerClick()" ion-button>Registrar</button>\n\n      <button (click)="goBackClick()" ion-button>Voltar</button>\n\n    </div>\n\n  </form>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\register\register.html"*/,
+            selector: 'page-register',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\register\register.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Register</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <form [formGroup]="form">\n\n    <ion-list>\n\n      <div class="user-info">\n\n        <div class="user-info-title">\n\n          <span>Informações do Usuário</span>\n\n        </div>\n\n        <ion-item>\n\n          <ion-label>Nome</ion-label>\n\n          <ion-input [(ngModel)]="user.name" formControlName="name" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'name\'].errors && form.controls[\'name\'].dirty" color="danger">O Nome é obrigatório</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Email</ion-label>\n\n          <ion-input [(ngModel)]="user.email" formControlName="email" type="email"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'email\'].errors && form.controls[\'email\'].dirty" color="danger">O Email está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Login</ion-label>\n\n          <ion-input [(ngModel)]="user.username" s formControlName="username" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'username\'].errors && form.controls[\'username\'].dirty" color="danger">O Nome de usuário inválido</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Senha</ion-label>\n\n          <ion-input [(ngModel)]="user.password" formControlName="password" type="password"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'password\'].errors && form.controls[\'password\'].dirty" color="danger"> Email está incorreto </ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Confirmar Senha</ion-label>\n\n          <ion-input [(ngModel)]="user.passwordConfirmation" formControlName="passwordConfirmation" type="password"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'passwordConfirmation\'].errors && form.controls[\'passwordConfirmation\'].dirty" color="danger">Senha de confirmação está inválida</ion-label>\n\n      </div>\n\n\n\n      <div class="car-info">\n\n        <div class="car-info-title">\n\n          <span>Informações do Veículo</span>\n\n        </div>\n\n        <ion-item>\n\n          <ion-label>Marca</ion-label>\n\n          <ion-input [(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'marca\'].errors && form.controls[\'marca\'].dirty" color="danger"> A marca está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Modelo</ion-label>\n\n          <ion-input [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'modelo\'].errors && form.controls[\'modelo\'].dirty" color="danger">O modelo está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Placa</ion-label>\n\n          <ion-input [(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'placa\'].errors && form.controls[\'placa\'].dirty" color="danger">A placa está inválida</ion-label>\n\n      </div>\n\n    </ion-list>\n\n\n\n    <div padding>\n\n      <button [disabled]="!form.valid || !comparePasswords()" (click)="registerClick()" ion-button>Registrar</button>\n\n      <button (click)="goBackClick()" ion-button>Voltar</button>\n\n    </div>\n\n  </form>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\register\register.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */]) === "function" && _e || Object])
     ], RegisterPage);
     return RegisterPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=register.js.map
@@ -294,10 +301,9 @@ var LoginProvider = /** @class */ (function () {
     };
     LoginProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
     ], LoginProvider);
     return LoginProvider;
-    var _a;
 }());
 
 //# sourceMappingURL=login.js.map
@@ -357,7 +363,7 @@ var QrcodePage = /** @class */ (function () {
     };
     QrcodePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-qrcode',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\qrcode\qrcode.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>QR code</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <div class="qr-code-container">\n      <div class="qr-code">\n        <qr-code value={{user?.name}} size="300"></qr-code>\n      </div>\n    </div>    \n</ion-content>\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\qrcode\qrcode.html"*/,
+            selector: 'page-qrcode',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\qrcode\qrcode.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>QR code</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n    <div class="qr-code-container">\n\n      <div class="qr-code">\n\n        <qr-code value={{user?.name}} size="300"></qr-code>\n\n      </div>\n\n    </div>    \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\qrcode\qrcode.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
@@ -385,30 +391,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-<<<<<<< HEAD
-webpackEmptyAsyncContext.id = 119;
-
-/***/ }),
-
-/***/ 121:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return User; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__car__ = __webpack_require__(238);
-
-var User = /** @class */ (function () {
-    function User() {
-        this.car = new __WEBPACK_IMPORTED_MODULE_0__car__["a" /* Car */]();
-        this.usertype = 1;
-    }
-    return User;
-}());
-
-//# sourceMappingURL=user.js.map
-=======
 webpackEmptyAsyncContext.id = 121;
->>>>>>> f1e75ac6ce27f564c51509fb2ddeb9bf18752a79
 
 /***/ }),
 
@@ -421,11 +404,11 @@ var map = {
 		2
 	],
 	"../pages/qrcode/qrcode.module": [
-		305,
+		306,
 		1
 	],
 	"../pages/register/register.module": [
-		306,
+		305,
 		0
 	]
 };
@@ -490,7 +473,7 @@ var ListPage = /** @class */ (function () {
     };
     ListPage = ListPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-list',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\list\list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>List</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n\n      {{item.title}}\n\n      <div class="item-note" item-end>\n\n        {{item.note}}\n\n      </div>\n\n    </button>\n\n  </ion-list>\n\n  <div *ngIf="selectedItem" padding>\n\n    You navigated here from <b>{{selectedItem.title}}</b>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\list\list.html"*/
+            selector: 'page-list',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\list\list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-end>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n  <div *ngIf="selectedItem" padding>\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\list\list.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
     ], ListPage);
@@ -617,8 +600,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/qrcode/qrcode.module#QrcodePageModule', name: 'QrcodePage', segment: 'qrcode', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/qrcode/qrcode.module#QrcodePageModule', name: 'QrcodePage', segment: 'qrcode', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -748,7 +731,7 @@ var MyApp = /** @class */ (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\app\app.html"*/'<ion-menu [content]="content">\n\n  <ion-header>\n\n    <ion-toolbar>\n\n      <ion-title>Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content>\n\n    <ion-list>\n\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\app\app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -769,6 +752,7 @@ var MyApp = /** @class */ (function () {
 var User = /** @class */ (function () {
     function User() {
         this.car = new __WEBPACK_IMPORTED_MODULE_0__car__["a" /* Car */]();
+        this.usertype = 1;
     }
     return User;
 }());

@@ -32,6 +32,19 @@ export class LoginPage {
 
   loginClick() {
     this._loginProvider.login(this.loginModel).subscribe(res => {
+
+      if (res.success == false) {
+
+        res.error.forEach(element => {
+          this._toast.create({
+            message: element.msg,
+            duration: 3000,
+            position: 'bottom'
+          }).present();      
+        });
+        return;
+      }
+
       const decodedToken = this._jwtHelper.decodeToken(res.token);
       const expirationDate = this._jwtHelper.getTokenExpirationDate(res.token);
       const isExpired = this._jwtHelper.isTokenExpired(res.token);

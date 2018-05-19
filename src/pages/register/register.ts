@@ -29,7 +29,7 @@ export class RegisterPage {
       passwordConfirmation: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
       marca: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
       modelo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
-      placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8)]],
+      placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8), Validators.pattern(/[a-z]{3}-?\d{4}/)]],
     })
   }
 
@@ -42,6 +42,7 @@ export class RegisterPage {
   registerClick() {
     debugger
     this.userProvider.register(this.user).subscribe(res => {
+      debugger
       if (res.success == false) {
 
         res.error.forEach(element => {
@@ -53,7 +54,6 @@ export class RegisterPage {
         });
         
       } else {
-        debugger
         this.toast.create({
           message: 'Usuário criado com sucesso',
           duration: 3000,

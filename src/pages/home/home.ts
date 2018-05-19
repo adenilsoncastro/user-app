@@ -30,6 +30,8 @@ export class HomePage {
       var decodedToken = this._jwtHelper.decodeToken(val);
       if(decodedToken.user)
         this.user = decodedToken.user;
+
+        debugger
     });
   }
 
