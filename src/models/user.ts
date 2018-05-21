@@ -4,6 +4,7 @@ export class User {
         this.usertype = 1;
     }
 
+    _id: string;
     name: string;
     email: string;
     username: string;

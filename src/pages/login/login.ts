@@ -34,7 +34,6 @@ export class LoginPage {
     this._loginProvider.login(this.loginModel).subscribe(res => {
 
       if (res.success == false) {
-
         res.error.forEach(element => {
           this._toast.create({
             message: element.msg,
