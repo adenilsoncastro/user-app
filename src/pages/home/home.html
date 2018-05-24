@@ -16,4 +16,10 @@
 
   {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}
 
+  <div *ngIf="transits">
+    <div class="row" *ngFor="let transit of transits">
+      <div class="col">{{transit.automaticBarrierId}}</div>
+      <div class="col">{{transit.date | date: 'mediumDate' }}</div>
+    </div>
+  </div>
 </ion-content>

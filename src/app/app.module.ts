@@ -16,6 +16,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { RegisterPage } from '../pages/register/register';
 import { JwtModule } from '@auth0/angular-jwt';
 import { QRCodeModule } from 'angular2-qrcode';
+import { TransitProvider } from '../providers/transit/transit';
+import { CommonModule } from '@angular/common';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -43,7 +45,8 @@ export function tokenGetter() {
     }),
     HttpClientModule,
     IonicStorageModule,
-    QRCodeModule
+    QRCodeModule,
+    CommonModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,6 +62,7 @@ export function tokenGetter() {
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoginProvider,
+    TransitProvider,
   ]
 })
 export class AppModule { }
