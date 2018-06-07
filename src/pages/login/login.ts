@@ -39,7 +39,7 @@ export class LoginPage {
             message: element.msg,
             duration: 3000,
             position: 'bottom'
-          }).present();      
+          }).present();
         });
         return;
       }
@@ -52,16 +52,14 @@ export class LoginPage {
       this.loginModel.username = "";
       this.loginModel.password = "";
       this.loginModel.usertype = 1;
-      this._storage.set('token', res.token);
-
-      let toast = this._toast.create({
-        message: 'Autenticação realizada com sucesso! Bem vindo(a), ' + decodedToken.user.name,
-        duration: 3000,
-        position: 'bottom'
-      }).present();
-      
-      this.navCtrl.push(HomePage);
-
+      this._storage.set('token', res.token).then(() => {
+        let toast = this._toast.create({
+          message: 'Autenticação realizada com sucesso! Bem vindo(a), ' + decodedToken.user.name,
+          duration: 3000,
+          position: 'bottom'
+        }).present();
+        this.navCtrl.push(HomePage);
+      });
     }, error => {
       console.log(error);
       let toast = this._toast.create({

@@ -19,7 +19,8 @@
   <div *ngIf="transits">
     <div class="row" *ngFor="let transit of transits">
       <div class="col">{{transit.automaticBarrierId}}</div>
-      <div class="col">{{transit.date | date: 'mediumDate' }}</div>
+      <div class="col">{{transit.automaticBarrierLocatioName}}</div>
+      <div class="col">{{transit.date | date: 'long' }}</div>
     </div>
   </div>
 </ion-content>
