@@ -8,7 +8,7 @@ webpackJsonp([3],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__ = __webpack_require__(207);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__qrcode_qrcode__ = __webpack_require__(111);
@@ -51,6 +51,9 @@ var HomePage = /** @class */ (function () {
                 _this.user = decodedToken.user;
             _this._transitProvider.list(_this.user._id).subscribe(function (res) {
                 _this.transits = res.data;
+                _this.transits.forEach(function (item) {
+                    item.img = 'data:image/jpeg;base64,' + item.img;
+                });
             }, function (error) {
                 console.log(error);
                 var toast = _this._toast.create({
@@ -71,7 +74,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div padding>\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n  </div>\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n  <div *ngIf="transits">\n    <div class="row" *ngFor="let transit of transits">\n      <div class="col">{{transit.automaticBarrierId}}</div>\n      <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n      <div class="col">{{transit.date | date: \'long\' }}</div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div padding>\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n  </div>\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n  <div *ngIf="transits">\n    <div class="row" *ngFor="let transit of transits">\n      <div class="col">{{transit.automaticBarrierId}}</div>\n      <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n      <div class="col">{{transit.date | date: \'long\' }}</div>\n      <div class="col"><img src={{transit.img}} /></div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */]],
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */]) === "function" && _e || Object])
@@ -94,7 +97,7 @@ var HomePage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_login__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__ = __webpack_require__(49);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -183,10 +186,14 @@ var LoginPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["m" /* Component */])({
             selector: 'page-login',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\login\login.html"*/'<ion-content padding>\n\n\n\n  <div class="login-form-container">\n\n    <ion-list>\n\n      <ion-item>\n\n        <div class="img-container">\n\n          <ion-img class="img-ion" src="assets/imgs/login_user.png"></ion-img>\n\n        </div>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Login</ion-label>\n\n        <ion-input autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Senha</ion-label>\n\n        <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>\n\n      </ion-item>\n\n    </ion-list>\n\n    <div padding>\n\n      <button class="button-login"  [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>\n\n      <button class="button-register"  ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>\n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\login\login.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]])
     ], LoginPage);
     return LoginPage;
-    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=login.js.map
@@ -201,7 +208,7 @@ var LoginPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_user_user__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -337,7 +344,7 @@ var LoginProvider = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QrcodePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__auth0_angular_jwt__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_user__ = __webpack_require__(61);
@@ -384,7 +391,7 @@ var QrcodePage = /** @class */ (function () {
     };
     QrcodePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-qrcode',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\qrcode\qrcode.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>QR code</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n    <div class="qr-code-container">\n\n      <div class="qr-code">\n\n        <qr-code value={{user?.name}} size="300"></qr-code>\n\n      </div>\n\n    </div>    \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\qrcode\qrcode.html"*/,
+            selector: 'page-qrcode',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\qrcode\qrcode.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>QR code</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n    <div class="qr-code-container">\n\n      <div class="qr-code">\n\n        <qr-code value={{user?._id}} size="300"></qr-code>\n\n      </div>\n\n    </div>    \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\qrcode\qrcode.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
@@ -540,7 +547,7 @@ var TransitProvider = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -651,7 +658,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_login_login__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_list_list__ = __webpack_require__(212);
@@ -831,7 +838,7 @@ var LoginModel = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(106);

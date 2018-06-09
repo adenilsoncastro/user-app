@@ -39,6 +39,9 @@ export class HomePage {
         this.user = decodedToken.user;
       this._transitProvider.list(this.user._id).subscribe(res => {
         this.transits = res.data;
+        this.transits.forEach(item => {
+          item.img = 'data:image/jpeg;base64,' + item.img
+        })
       }, error => {
         console.log(error);
         let toast = this._toast.create({
