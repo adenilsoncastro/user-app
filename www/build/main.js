@@ -38,6 +38,7 @@ var HomePage = /** @class */ (function () {
         this._toast = _toast;
         this.user = new __WEBPACK_IMPORTED_MODULE_1__models_user__["a" /* User */]();
         this.transits = [];
+        this.countOfToday = 0;
         this.init();
     }
     HomePage.prototype.init = function () {
@@ -63,6 +64,18 @@ var HomePage = /** @class */ (function () {
                 });
                 toast.present();
             });
+            _this._transitProvider.countOfToday(_this.user._id).subscribe(function (res) {
+                _this.countOfToday = res.data;
+                debugger;
+            }, function (error) {
+                console.log(error);
+                var toast = _this._toast.create({
+                    message: error.error.text,
+                    duration: 3000,
+                    position: 'bottom'
+                });
+                toast.present();
+            });
         });
     };
     HomePage.prototype.logout = function () {
@@ -74,7 +87,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div padding>\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n  </div>\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n  <div *ngIf="transits">\n    <div class="row" *ngFor="let transit of transits">\n      <div class="col">{{transit.automaticBarrierId}}</div>\n      <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n      <div class="col">{{transit.date | date: \'long\' }}</div>\n      <div class="col"><img src={{transit.img}} /></div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div padding>\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n  </div>\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n  quantidade de vezes que a cancela foi utilizada hoje: {{countOfToday}}\n\n  <div *ngIf="transits">\n    <div class="row" *ngFor="let transit of transits">\n      <div class="col">{{transit.automaticBarrierId}}</div>\n      <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n      <div class="col">{{transit.date | date: \'long\' }}</div>\n      <div class="col"><img src={{transit.img}} /></div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */]],
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */]) === "function" && _e || Object])
@@ -519,22 +532,25 @@ var TransitProvider = /** @class */ (function (_super) {
                 .set('userId', userId);
             return _this.http.get(_this.url + 'transits/list', { headers: headers, params: params });
         });
-        // return this.getToken().flatMap(val=> {
-        //   debugger
-        //   let headers = new HttpHeaders();
-        //   headers.append('Content-Type', 'application/json');
-        //   headers.append('token', val);
-        //   let params = new HttpParams();
-        //   params.append("userId", userId)
-        //   return this.http.get<any>(this.url + 'transits/list', { headers, params });
-        // });
+    };
+    TransitProvider.prototype.countOfToday = function (userId) {
+        var _this = this;
+        return this.getAuthHeaders().flatMap(function (api_token) {
+            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpHeaders */]({
+                'Content-Type': 'application/json; charset=utf-8',
+                token: api_token,
+            });
+            var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["e" /* HttpParams */]()
+                .set('userId', userId);
+            return _this.http.get(_this.url + 'transits/countOfToday', { headers: headers, params: params });
+        });
     };
     TransitProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _b || Object])
     ], TransitProvider);
     return TransitProvider;
+    var _a, _b;
 }(__WEBPACK_IMPORTED_MODULE_0__baseprovider__["a" /* BaseProvider */]));
 
 //# sourceMappingURL=transit.js.map

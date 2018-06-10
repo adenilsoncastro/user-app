@@ -16,6 +16,8 @@
 
   {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}
 
+  quantidade de vezes que a cancela foi utilizada hoje: {{countOfToday}}
+
   <div *ngIf="transits">
     <div class="row" *ngFor="let transit of transits">
       <div class="col">{{transit.automaticBarrierId}}</div>

@@ -32,19 +32,20 @@ export class TransitProvider extends BaseProvider {
 
       return this.http.get<any>(this.url + 'transits/list', { headers, params });
     });
+  }
 
-    // return this.getToken().flatMap(val=> {
+  countOfToday(userId) {
 
-    //   debugger
+    return this.getAuthHeaders().flatMap(api_token => {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8',
+        token: api_token,
+      });
 
-    //   let headers = new HttpHeaders();
-    //   headers.append('Content-Type', 'application/json');
-    //   headers.append('token', val);
+      let params = new HttpParams()
+      .set('userId', userId)
 
-    //   let params = new HttpParams();
-    //   params.append("userId", userId)
-
-    //   return this.http.get<any>(this.url + 'transits/list', { headers, params });
-    // });
+      return this.http.get<any>(this.url + 'transits/countOfToday', { headers, params });
+    });
   }
 }
