@@ -1,24 +1,25 @@
-<ion-content padding>
-
-  <div class="login-form-container">
-    <ion-list>
-      <ion-item>
+<ion-content scroll="false">
+  <div class="box-login">
+    <div class="login-form-container">
+      <ion-row class="logo-row">
         <div class="img-container">
-          <ion-img class="img-ion" src="assets/imgs/login_user.png"></ion-img>
+          <ion-img class="img-ion" src="assets/imgs/logo2.png"></ion-img>
         </div>
-      </ion-item>
-      <ion-item>
-        <ion-label>Login</ion-label>
-        <ion-input autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Senha</ion-label>
-        <ion-input [(ngModel)]="loginModel.password" type="password"></ion-input>
-      </ion-item>
-    </ion-list>
-    <div padding>
-      <button class="button-login"  [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>
-      <button class="button-register"  ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>
+      </ion-row>
+      <ion-row>
+        <ion-list class="list-login-form">
+          <ion-item class="login-input">
+            <ion-input class="input-field" placeholder="Login" autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>
+          </ion-item>
+          <ion-item class="login-input">
+            <ion-input class="input-field" placeholder="Senha" [(ngModel)]="loginModel.password" type="password"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+      <div>
+        <button class="button-login" [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>
+        <button class="button-register" ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>
+      </div>
     </div>
   </div>
 </ion-content>
