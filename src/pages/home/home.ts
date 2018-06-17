@@ -27,6 +27,7 @@ export class HomePage {
 
   user: User = new User();
   transits = [];
+  countOfToday = 0;
 
   init() {
     this.getNome();
@@ -37,8 +38,25 @@ export class HomePage {
       var decodedToken = this._jwtHelper.decodeToken(val);
       if (decodedToken.user)
         this.user = decodedToken.user;
+
       this._transitProvider.list(this.user._id).subscribe(res => {
         this.transits = res.data;
+        this.transits.forEach(item => {
+          item.img = 'data:image/jpeg;base64,' + item.img
+        })
+      }, error => {
+        console.log(error);
+        let toast = this._toast.create({
+          message: error.error.text,
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+      })
+
+      this._transitProvider.countOfToday(this.user._id).subscribe(res => {
+        this.countOfToday = res.data;
+        debugger
       }, error => {
         console.log(error);
         let toast = this._toast.create({
