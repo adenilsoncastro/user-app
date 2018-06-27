@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { ToastController } from 'ionic-angular';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -21,7 +22,8 @@ export class LoginPage {
     public _loginProvider: LoginProvider,
     private _toast: ToastController,
     private _storage: Storage,
-    private _jwtHelper: JwtHelperService) {
+    private _jwtHelper: JwtHelperService,
+    public loadingCtrl: LoadingController) {
   }
 
   loginModel: LoginModel = new LoginModel();
@@ -31,7 +33,17 @@ export class LoginPage {
   }
 
   loginClick() {
+
+    let loading = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: 'Aguarde...'
+    });
+
+    loading.present();
+
     this._loginProvider.login(this.loginModel).subscribe(res => {
+
+      loading.dismiss();
 
       if (res.success == false) {
         res.error.forEach(element => {

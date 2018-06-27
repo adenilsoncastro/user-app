@@ -3,6 +3,7 @@ import { User } from './../../models/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -20,7 +21,8 @@ export class RegisterPage {
     public navParams: NavParams,
     private fb: FormBuilder,
     private toast: ToastController,
-    private userProvider: UserProvider) {
+    private userProvider: UserProvider,
+    public loadingCtrl: LoadingController) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
       email: ['', [Validators.required, Validators.email]],
@@ -40,8 +42,16 @@ export class RegisterPage {
   }
 
   registerClick() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: 'Aguarde...'
+    });
+
+    loading.present();
+
     debugger
     this.userProvider.register(this.user).subscribe(res => {
+      loading.dismiss();
       debugger
       if (res.success == false) {
 

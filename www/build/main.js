@@ -11,7 +11,7 @@ webpackJsonp([3],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__qrcode_qrcode__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__qrcode_qrcode__ = __webpack_require__(110);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,6 +38,7 @@ var HomePage = /** @class */ (function () {
         this._toast = _toast;
         this.user = new __WEBPACK_IMPORTED_MODULE_1__models_user__["a" /* User */]();
         this.transits = [];
+        this.countOfToday = 0;
         this.init();
     }
     HomePage.prototype.init = function () {
@@ -51,6 +52,21 @@ var HomePage = /** @class */ (function () {
                 _this.user = decodedToken.user;
             _this._transitProvider.list(_this.user._id).subscribe(function (res) {
                 _this.transits = res.data;
+                _this.transits.forEach(function (item) {
+                    item.img = 'data:image/jpeg;base64,' + item.img;
+                });
+            }, function (error) {
+                console.log(error);
+                var toast = _this._toast.create({
+                    message: error.error.text,
+                    duration: 3000,
+                    position: 'bottom'
+                });
+                toast.present();
+            });
+            _this._transitProvider.countOfToday(_this.user._id).subscribe(function (res) {
+                _this.countOfToday = res.data;
+                debugger;
             }, function (error) {
                 console.log(error);
                 var toast = _this._toast.create({
@@ -71,14 +87,14 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Home</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <div padding>\n\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n\n  </div>\n\n\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n\n\n  <div *ngIf="transits">\n\n    <div class="row" *ngFor="let transit of transits">\n\n      <div class="col">{{transit.automaticBarrierId}}</div>\n\n      <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n\n      <div class="col">{{transit.date | date: \'long\' }}</div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\home\home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Home</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <div padding>\n\n    <button class="button-login" (click)="logout()" ion-button>Logout</button>\n\n    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>\n\n  </div>\n\n\n\n  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}\n\n\n\n  quantidade de vezes que a cancela foi utilizada hoje: {{countOfToday}}\n\n\n\n  <div *ngIf="transits">\n\n    <div class="row" *ngFor="let transit of transits">\n\n      <div class="col">{{transit.automaticBarrierId}}</div>\n\n      <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n\n      <div class="col">{{transit.date | date: \'long\' }}</div>\n\n      <div class="col"><img src={{transit.img}} /></div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\home\home.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */]],
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
             __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__["a" /* JwtHelperService */],
             __WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */]])
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* ToastController */]])
     ], HomePage);
     return HomePage;
 }());
@@ -93,7 +109,7 @@ var HomePage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__register_register__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_login_login__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_login_login__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_login__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
@@ -118,22 +134,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, navParams, _loginProvider, _toast, _storage, _jwtHelper) {
+    function LoginPage(navCtrl, navParams, _loginProvider, _toast, _storage, _jwtHelper, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this._loginProvider = _loginProvider;
         this._toast = _toast;
         this._storage = _storage;
         this._jwtHelper = _jwtHelper;
+        this.loadingCtrl = loadingCtrl;
         this.loginModel = new __WEBPACK_IMPORTED_MODULE_3__models_login__["a" /* LoginModel */]();
     }
     LoginPage.prototype.onClick = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
     };
+    LoginPage.prototype.presentLoadingDefault = function () {
+        var loading = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: 'Aguarde...'
+        });
+        loading.present();
+        setTimeout(function () {
+            loading.dismiss();
+        }, 5000);
+    };
     LoginPage.prototype.loginClick = function () {
         var _this = this;
+        var loading = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: 'Aguarde...'
+        });
+        loading.present();
         this._loginProvider.login(this.loginModel).subscribe(function (res) {
+            loading.dismiss();
             if (res.success == false) {
                 res.error.forEach(function (element) {
                     _this._toast.create({
@@ -186,14 +220,10 @@ var LoginPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["m" /* Component */])({
             selector: 'page-login',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\login\login.html"*/'<ion-content scroll="false">\n\n  <div class="box-login">\n\n    <div class="login-form-container">\n\n      <ion-row class="logo-row">\n\n        <div class="img-container">\n\n          <ion-img class="img-ion" src="assets/imgs/logo2.png"></ion-img>\n\n        </div>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-list class="list-login-form">\n\n          <ion-item class="login-input">\n\n            <ion-input class="input-field" placeholder="Login" autofocus [(ngModel)]="loginModel.username" type="text"></ion-input>\n\n          </ion-item>\n\n          <ion-item class="login-input">\n\n            <ion-input class="input-field" placeholder="Senha" [(ngModel)]="loginModel.password" type="password"></ion-input>\n\n          </ion-item>\n\n        </ion-list>\n\n      </ion-row>\n\n      <div>\n\n        <button class="button-login" [disabled]="!isFormValid()" (click)="loginClick()" ion-button>Sign In</button>\n\n        <button class="button-register" ion-button (click)="registerClick()">Não é registrado? Clique aqui!</button>\n\n      </div>\n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\login\login.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */],
-            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__providers_login_login__["a" /* LoginProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["j" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__auth0_angular_jwt__["a" /* JwtHelperService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["e" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["e" /* LoadingController */]) === "function" && _g || Object])
     ], LoginPage);
     return LoginPage;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=login.js.map
@@ -224,13 +254,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RegisterPage = /** @class */ (function () {
-    function RegisterPage(navCtrl, navParams, fb, toast, userProvider) {
+    function RegisterPage(navCtrl, navParams, fb, toast, userProvider, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fb = fb;
         this.toast = toast;
         this.userProvider = userProvider;
+        this.loadingCtrl = loadingCtrl;
         this.user = new __WEBPACK_IMPORTED_MODULE_1__models_user__["a" /* User */]();
         this.form = this.fb.group({
             name: ['', [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].maxLength(150)]],
@@ -250,8 +282,14 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage.prototype.registerClick = function () {
         var _this = this;
+        var loading = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: 'Aguarde...'
+        });
+        loading.present();
         debugger;
         this.userProvider.register(this.user).subscribe(function (res) {
+            loading.dismiss();
             debugger;
             if (res.success == false) {
                 res.error.forEach(function (element) {
@@ -286,16 +324,13 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\register\register.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Register</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <form [formGroup]="form">\n\n    <ion-list>\n\n      <div class="user-info">\n\n        <div class="user-info-title">\n\n          <span>Informações do Usuário</span>\n\n        </div>\n\n        <ion-item>\n\n          <ion-label>Nome</ion-label>\n\n          <ion-input [(ngModel)]="user.name" formControlName="name" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'name\'].errors && form.controls[\'name\'].dirty" color="danger">O Nome é obrigatório</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Email</ion-label>\n\n          <ion-input [(ngModel)]="user.email" formControlName="email" type="email"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'email\'].errors && form.controls[\'email\'].dirty" color="danger">O Email está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Login</ion-label>\n\n          <ion-input [(ngModel)]="user.username" s formControlName="username" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'username\'].errors && form.controls[\'username\'].dirty" color="danger">O Nome de usuário inválido</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Senha</ion-label>\n\n          <ion-input [(ngModel)]="user.password" formControlName="password" type="password"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'password\'].errors && form.controls[\'password\'].dirty" color="danger"> Email está incorreto </ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Confirmar Senha</ion-label>\n\n          <ion-input [(ngModel)]="user.passwordConfirmation" formControlName="passwordConfirmation" type="password"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'passwordConfirmation\'].errors && form.controls[\'passwordConfirmation\'].dirty" color="danger">Senha de confirmação está inválida</ion-label>\n\n      </div>\n\n\n\n      <div class="car-info">\n\n        <div class="car-info-title">\n\n          <span>Informações do Veículo</span>\n\n        </div>\n\n        <ion-item>\n\n          <ion-label>Marca</ion-label>\n\n          <ion-input [(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'marca\'].errors && form.controls[\'marca\'].dirty" color="danger"> A marca está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Modelo</ion-label>\n\n          <ion-input [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'modelo\'].errors && form.controls[\'modelo\'].dirty" color="danger">O modelo está incorreto</ion-label>\n\n\n\n        <ion-item>\n\n          <ion-label>Placa</ion-label>\n\n          <ion-input [(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>\n\n        </ion-item>\n\n        <ion-label *ngIf="form.controls[\'placa\'].errors && form.controls[\'placa\'].dirty" color="danger">A placa está inválida</ion-label>\n\n      </div>\n\n    </ion-list>\n\n\n\n    <div padding>\n\n      <button [disabled]="!form.valid || !comparePasswords()" (click)="registerClick()" ion-button>Registrar</button>\n\n      <button (click)="goBackClick()" ion-button>Voltar</button>\n\n    </div>\n\n  </form>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\register\register.html"*/,
+            selector: 'page-register',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\register\register.html"*/'<ion-content>\n\n  <div class="register-container">\n\n    <ion-row class="row-img">\n\n      <div class="image-container">\n\n        <ion-img class="img-ion" src="assets/imgs/logo2.png"></ion-img>\n\n      </div>\n\n    </ion-row>\n\n    <ion-row>\n\n      <form [formGroup]="form" class="register-form">\n\n        <ion-list class="form-list-container">\n\n          <div class="user-info">\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="Nome" [(ngModel)]="user.name" formControlName="name" type="text"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'name\'].errors && form.controls[\'name\'].dirty" color="danger">O nome é obrigatório</ion-label>\n\n\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="E-mail" [(ngModel)]="user.email" formControlName="email" type="email"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'email\'].errors && form.controls[\'email\'].dirty" color="danger">O E-mail está incorreto</ion-label>\n\n\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="Login" [(ngModel)]="user.username" s formControlName="username" type="text"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'username\'].errors && form.controls[\'username\'].dirty" color="danger">Login inválido</ion-label>\n\n\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="Senha" [(ngModel)]="user.password" formControlName="password" type="password"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'password\'].errors && form.controls[\'password\'].dirty" color="danger">Senha incorreta </ion-label>\n\n\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" [(ngModel)]="user.passwordConfirmation" placeholder="Confirme a senha"formControlName="passwordConfirmation" type="password"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'passwordConfirmation\'].errors && form.controls[\'passwordConfirmation\'].dirty" color="danger">Senha de confirmação está incorreta</ion-label>\n\n          </div>\n\n\n\n          <div class="car-info">\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="Marca do veículo"[(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'marca\'].errors && form.controls[\'marca\'].dirty" color="danger"> A marca está incorreta</ion-label>\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="Modelo do veículo" [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'modelo\'].errors && form.controls[\'modelo\'].dirty" color="danger">O modelo está incorreto</ion-label>\n\n            <ion-item class="register-input">\n\n              <ion-input class="input-field" placeholder="Placa do veículo"[(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>\n\n            </ion-item>\n\n            <ion-label *ngIf="form.controls[\'placa\'].errors && form.controls[\'placa\'].dirty" color="danger">A placa está incorreta! Tente no formato ABC-1234</ion-label>\n\n          </div>\n\n        </ion-list>\n\n\n\n        <div padding>\n\n          <button class="button-register" [disabled]="!form.valid || !comparePasswords()" (click)="registerClick()" ion-button>Registrar</button>\n\n          <button class="button-go-back"(click)="goBackClick()" ion-button>Voltar</button>\n\n        </div>\n\n      </form>\n\n    </ion-row>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\register\register.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_user_user__["a" /* UserProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["e" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["e" /* LoadingController */]) === "function" && _f || Object])
     ], RegisterPage);
     return RegisterPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=register.js.map
@@ -303,42 +338,6 @@ var RegisterPage = /** @class */ (function () {
 /***/ }),
 
 /***/ 110:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var LoginProvider = /** @class */ (function () {
-    function LoginProvider(http) {
-        this.http = http;
-    }
-    LoginProvider.prototype.login = function (login) {
-        return this.http.post('http://localhost:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
-    };
-    LoginProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
-    ], LoginProvider);
-    return LoginProvider;
-}());
-
-//# sourceMappingURL=login.js.map
-
-/***/ }),
-
-/***/ 111:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -393,9 +392,9 @@ var QrcodePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-qrcode',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\qrcode\qrcode.html"*/'<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>QR code</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n    <div class="qr-code-container">\n\n      <div class="qr-code">\n\n        <qr-code value={{user?._id}} size="300"></qr-code>\n\n      </div>\n\n    </div>    \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\qrcode\qrcode.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ToastController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */],
             __WEBPACK_IMPORTED_MODULE_2__auth0_angular_jwt__["a" /* JwtHelperService */],
             __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
     ], QrcodePage);
@@ -403,6 +402,42 @@ var QrcodePage = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=qrcode.js.map
+
+/***/ }),
+
+/***/ 111:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var LoginProvider = /** @class */ (function () {
+    function LoginProvider(http) {
+        this.http = http;
+    }
+    LoginProvider.prototype.login = function (login) {
+        return this.http.post('http://localhost:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
+    };
+    LoginProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
+    ], LoginProvider);
+    return LoginProvider;
+}());
+
+//# sourceMappingURL=login.js.map
 
 /***/ }),
 
@@ -428,15 +463,15 @@ webpackEmptyAsyncContext.id = 121;
 
 var map = {
 	"../pages/login/login.module": [
-		306,
+		308,
 		2
 	],
 	"../pages/qrcode/qrcode.module": [
-		307,
+		306,
 		1
 	],
 	"../pages/register/register.module": [
-		308,
+		307,
 		0
 	]
 };
@@ -519,15 +554,18 @@ var TransitProvider = /** @class */ (function (_super) {
                 .set('userId', userId);
             return _this.http.get(_this.url + 'transits/list', { headers: headers, params: params });
         });
-        // return this.getToken().flatMap(val=> {
-        //   debugger
-        //   let headers = new HttpHeaders();
-        //   headers.append('Content-Type', 'application/json');
-        //   headers.append('token', val);
-        //   let params = new HttpParams();
-        //   params.append("userId", userId)
-        //   return this.http.get<any>(this.url + 'transits/list', { headers, params });
-        // });
+    };
+    TransitProvider.prototype.countOfToday = function (userId) {
+        var _this = this;
+        return this.getAuthHeaders().flatMap(function (api_token) {
+            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpHeaders */]({
+                'Content-Type': 'application/json; charset=utf-8',
+                token: api_token,
+            });
+            var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["e" /* HttpParams */]()
+                .set('userId', userId);
+            return _this.http.get(_this.url + 'transits/countOfToday', { headers: headers, params: params });
+        });
     };
     TransitProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
@@ -588,7 +626,7 @@ var ListPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-list',template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\list\list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>List</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n\n      {{item.title}}\n\n      <div class="item-note" item-end>\n\n        {{item.note}}\n\n      </div>\n\n    </button>\n\n  </ion-list>\n\n  <div *ngIf="selectedItem" padding>\n\n    You navigated here from <b>{{selectedItem.title}}</b>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\pages\list\list.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], ListPage);
     return ListPage;
     var ListPage_1;
@@ -662,10 +700,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_list_list__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_qrcode_qrcode__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_qrcode_qrcode__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_login_login__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_login_login__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_storage__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__auth0_angular_jwt__ = __webpack_require__(49);
@@ -716,9 +754,9 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/qrcode/qrcode.module#QrcodePageModule', name: 'QrcodePage', segment: 'qrcode', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -888,13 +926,13 @@ var MyApp = /** @class */ (function () {
         this.nav.setRoot(page.component);
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\adeni\Desktop\TCC\code\user-app\src\app\app.html"*/'<ion-menu [content]="content">\n\n  <ion-header>\n\n    <ion-toolbar>\n\n      <ion-title>Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content>\n\n    <ion-list>\n\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"C:\Users\adeni\Desktop\TCC\code\user-app\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
     return MyApp;
 }());
