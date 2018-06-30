@@ -8,6 +8,7 @@ import { Storage } from "@ionic/storage";
 import { QrcodePage } from '../qrcode/qrcode'
 import { CommonModule } from '@angular/common';
 import { ToastController } from 'ionic-angular';
+import { AlterPage } from '../alter/alter';
 
 @Component({
   selector: 'page-home',
@@ -56,7 +57,6 @@ export class HomePage {
 
       this._transitProvider.countOfToday(this.user._id).subscribe(res => {
         this.countOfToday = res.data;
-        debugger
       }, error => {
         console.log(error);
         let toast = this._toast.create({
@@ -76,6 +76,10 @@ export class HomePage {
 
   QrCode() {
     this.navCtrl.push(QrcodePage);
+  }
+
+  alter() {
+    this.navCtrl.push(AlterPage);
   }
 
 }

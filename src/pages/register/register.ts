@@ -40,9 +40,7 @@ export class RegisterPage {
   }
 
   registerClick() {
-    debugger
     this.userProvider.register(this.user).subscribe(res => {
-      debugger
       if (res.success == false) {
 
         res.error.forEach(element => {

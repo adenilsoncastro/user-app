@@ -1,17 +1,9 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
 
   <div padding>
     <button class="button-login" (click)="logout()" ion-button>Logout</button>
     <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>
+    <button class="button-login" (click)="alter()" ion-button>Alterar informações</button>
   </div>
 
   {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}
@@ -20,7 +12,6 @@
 
   <div *ngIf="transits">
     <div class="row" *ngFor="let transit of transits">
-      <div class="col">{{transit.automaticBarrierId}}</div>
       <div class="col">{{transit.automaticBarrierLocatioName}}</div>
       <div class="col">{{transit.date | date: 'long' }}</div>
       <div class="col"><img src={{transit.img}} /></div>
