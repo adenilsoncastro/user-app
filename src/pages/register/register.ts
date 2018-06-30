@@ -75,8 +75,9 @@ export class RegisterPage {
       }
       console.log(res);
     }, error => {
+      loading.dismiss();
       this.toast.create({
-        message: error.error.text,
+        message: "Ocorreu um erro ao se comunicar com o servidor",
         duration: 3000,
         position: 'bottom'
       }).present();

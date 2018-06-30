@@ -1,29 +1,30 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
+  <div class="home-container">
+    <div class="home-user-info">
+      <div class="user-name-container">
+        <span class="home-user-welcome">Olá, {{user?.name}}
+        </span>
+      </div>
+      <div class="vehicle-info">
+        <span class="home-user-car-model">Veículo: {{user?.car?.modelo}}</span>
+        <span class="home-user-car-plate">Placa: {{user?.car?.placa}} </span>
+        <span class="home-user-car-usage">Você utilizou a cancela {{countOfToday}} vezes hoje.</span>
+      </div>
+    </div>
+    <div class="transit-container" *ngIf="transits">
+      <div class="row" *ngFor="let transit of transits">
+        <div class="col">{{transit.automaticBarrierId}}</div>
+        <div class="col">{{transit.automaticBarrierLocatioName}}</div>
+        <div class="col">{{transit.date | date: 'long' }}</div>
+        <div class="col">
+          <img src={{transit.img}} />
+        </div>
+      </div>
+    </div>
 
-<ion-content padding>
-
-  <div padding>
-    <button class="button-login" (click)="logout()" ion-button>Logout</button>
-    <button class="button-login" (click)="QrCode()" ion-button>QR Code</button>
-  </div>
-
-  {{user?.name}} {{user?.email}} {{user?.car?.marca}} {{user?.car?.modelo}} {{user?.car?.placa}}
-
-  quantidade de vezes que a cancela foi utilizada hoje: {{countOfToday}}
-
-  <div *ngIf="transits">
-    <div class="row" *ngFor="let transit of transits">
-      <div class="col">{{transit.automaticBarrierId}}</div>
-      <div class="col">{{transit.automaticBarrierLocatioName}}</div>
-      <div class="col">{{transit.date | date: 'long' }}</div>
-      <div class="col"><img src={{transit.img}} /></div>
+    <div class="action-button-container">
+      <button class="button-qrcode" (click)="QrCode()" ion-button>QRCode</button>
+      <button class="button-logout" (click)="logout()" ion-button>Logout</button>      
     </div>
   </div>
 </ion-content>
