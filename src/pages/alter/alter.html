@@ -62,14 +62,14 @@
   
           <ion-item>
             <ion-label>Placa</ion-label>
-            <ion-input [(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>
+            <ion-input oninput="this.value = this.value != null ? this.value.toUpperCase() : this.value" [(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>
           </ion-item>
           <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está inválida</ion-label>
         </div>
       </ion-list>
   
       <div padding>
-        <button [disabled]="!form.valid || !comparePasswords()" (click)="registerClick()" ion-button>Alterar</button>
+        <button [disabled]="!form.valid || !comparePasswords()" (click)="alterClick()" ion-button>Alterar</button>
         <button (click)="goBackClick()" ion-button>Voltar</button>
       </div>
     </form>

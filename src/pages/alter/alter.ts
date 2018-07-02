@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Storage } from "@ionic/storage";
+import { Car } from '../../models/car';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,7 @@ export class AlterPage {
         private toast: ToastController,
         private fb: FormBuilder,
         private userProvider: UserProvider) {
-            
+
         this.form = this.fb.group({
             name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
             email: ['', [Validators.required, Validators.email]],
@@ -33,7 +34,7 @@ export class AlterPage {
             passwordConfirmation: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
             marca: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
             modelo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
-            placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8), Validators.pattern(/[a-z]{3}-?\d{4}/)]],
+            placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8), Validators.pattern(/[A-Z]{3}-\d{4}/)]],
         });
 
         this.init();
@@ -42,10 +43,33 @@ export class AlterPage {
     init() {
         this._storage.get('token').then((val) => {
             var decodedToken = this._jwtHelper.decodeToken(val);
-            if (decodedToken.user)
-              this.user = decodedToken.user;
-              debugger
-          });
+            if (decodedToken.user) {
+                this.userProvider.get(decodedToken.user._id).subscribe(
+                    res => {
+                        this.user = res.user;
+                        this.user.car = new Car();
+                        this.user.car.marca = res.user.marca;
+                        this.user.car.modelo = res.user.modelo;
+                        this.user.car.placa = res.user.placa;
+                    },
+                    error => {
+                        var errorMsg = "";
+
+                        if (error.error.text) {
+                            errorMsg = error.error.text;
+                        } else {
+                            errorMsg = error.message;
+                        }
+
+                        let toast = this.toast.create({
+                            message: errorMsg,
+                            duration: 3000,
+                            position: 'bottom'
+                        });
+                        toast.present();
+                    })
+            }
+        });
     }
 
     comparePasswords() {
@@ -54,10 +78,10 @@ export class AlterPage {
         return this.form.controls['password'].value == this.form.controls['passwordConfirmation'].value
     }
 
-    registerClick() {
-        this.userProvider.register(this.user).subscribe(res => {
+    alterClick() {
+        this.user.usertype = 1;
+        this.userProvider.update(this.user).subscribe(res => {
             if (res.success == false) {
-
                 res.error.forEach(element => {
                     this.toast.create({
                         message: element.msg,
@@ -68,7 +92,7 @@ export class AlterPage {
 
             } else {
                 this.toast.create({
-                    message: 'Usuário criado com sucesso',
+                    message: 'Usuário alterado com sucesso',
                     duration: 3000,
                     position: 'bottom'
                 }).present()
@@ -89,5 +113,4 @@ export class AlterPage {
     goBackClick() {
         this.navCtrl.pop();
     }
-
 }

@@ -10,4 +10,12 @@ export class UserProvider {
   register(user: User) {
     return this.http.post<any>('http://localhost:8080/users/register', user);
   }
+
+  update(user: User) {
+    return this.http.post<any>('http://localhost:8080/users/update', user);
+  }
+
+  get(id) {
+    return this.http.get<any>('http://localhost:8080/users/' + id);
+  }
 }

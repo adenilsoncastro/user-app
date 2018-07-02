@@ -25678,6 +25678,22 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+page-login .scroll-content {
+  padding-bottom: 0px !important;
+}
+
+page-login .box-login {
+  display: table;
+  height: 100%;
+  width: 100%;
+  background: url("../assets/imgs/bg1.gif") repeat transparent;
+  background-size: cover;
+}
+
+page-login .logo-row {
+  margin-bottom: 30px;
+}
+
 page-login .img-container {
   width: 100%;
   text-align: center;
@@ -25691,31 +25707,70 @@ page-login .img-container .img-ion {
 }
 
 page-login .login-form-container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
-  background: #fff;
   padding: 10px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+page-login .list-login-form {
+  width: 100%;
+  text-align: center;
+}
+
+page-login .login-input {
+  border-radius: 10px !important;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  border-bottom-color: #fff !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #fff;
+}
+
+page-login .login-input .item-inner {
+  border-bottom: 0px !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  text-align: center;
+}
+
+page-login .login-input .item-inner .input-field .text-input {
+  text-align: center;
+}
+
+page-login .label {
+  color: #fff !important;
 }
 
 page-login .item-md {
   padding-left: 0;
+  background: none !important;
 }
 
 page-login .button-login {
+  border-radius: 10px;
   display: block;
   margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  background: -webkit-gradient(linear, left top, right top, from(#03effe), to(#4eadfe));
+  background: linear-gradient(to right, #03effe, #4eadfe);
 }
 
 page-login .button-register {
+  border-radius: 10px;
   display: block;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 10px;
   padding: 12px;
   white-space: normal;
-}
-
-page-login .scroll-content {
-  background: #ebebeb;
+  width: 100%;
+  height: 45px;
+  background: -webkit-gradient(linear, left top, right top, from(#03effe), to(#4eadfe));
+  background: linear-gradient(to right, #03effe, #4eadfe);
 }
 
 page-qrcode .qr-code-container {
@@ -25763,15 +25818,101 @@ page-register .md page-home .invalid {
   border: 1px solid #ea6153;
 }
 
+page-register .item-md {
+  padding-left: 0;
+  background: none !important;
+}
+
+page-register .scroll-content {
+  padding-bottom: 0px !important;
+}
+
+page-register .row-img {
+  height: 120px;
+  display: table;
+  width: 100%;
+}
+
+page-register .image-container {
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  background: none;
+}
+
+page-register .image-container .img-ion {
+  width: 80px;
+  height: 80px;
+  background: none;
+}
+
+page-register .register-container {
+  height: 100%;
+  width: 100%;
+  display: table;
+  background-color: #222431;
+}
+
+page-register .form-list-container, page-register .register-form {
+  width: 100%;
+}
+
 page-register .car-info, page-register .user-info {
-  margin: 10px;
-  border: solid 1px #ebebeb;
-  padding: 10px;
+  margin: 0;
+  width: 100%;
+  padding: 0 10px 0 10px;
+  text-align: center;
   border-radius: 5px;
 }
 
-page-register .car-info .car-info-title, page-register .car-info .user-info-title, page-register .user-info .car-info-title, page-register .user-info .user-info-title {
-  font-weight: bold;
+page-register .car-info {
+  margin-top: 30px;
+}
+
+page-register .register-input {
+  border-radius: 10px !important;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  border-bottom-color: #fff !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #fff;
+}
+
+page-register .register-input .item-inner {
+  border-bottom: 0px !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  text-align: center;
+}
+
+page-register .register-input .item-inner .input-field .text-input {
+  text-align: center;
+}
+
+page-register .button-register {
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  background: -webkit-gradient(linear, left top, right top, from(#03effe), to(#4eadfe));
+  background: linear-gradient(to right, #03effe, #4eadfe);
+}
+
+page-register .button-go-back {
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 12px;
+  white-space: normal;
+  width: 100%;
+  height: 45px;
+  background: -webkit-gradient(linear, left top, right top, from(#03effe), to(#4eadfe));
+  background: linear-gradient(to right, #03effe, #4eadfe);
 }
 
 page-register .item-md {

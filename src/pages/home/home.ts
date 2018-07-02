@@ -9,11 +9,13 @@ import { QrcodePage } from '../qrcode/qrcode'
 import { CommonModule } from '@angular/common';
 import { ToastController } from 'ionic-angular';
 import { AlterPage } from '../alter/alter';
+import { UserProvider } from '../../providers/user/user';
+import { Car } from '../../models/car';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [TransitProvider],
+  providers: [TransitProvider, UserProvider],
 })
 
 export class HomePage {
@@ -22,7 +24,8 @@ export class HomePage {
     private _storage: Storage,
     private _jwtHelper: JwtHelperService,
     private _transitProvider: TransitProvider,
-    private _toast: ToastController) {
+    private _toast: ToastController,
+    private userProvider: UserProvider) {
     this.init();
   }
 
@@ -31,43 +34,71 @@ export class HomePage {
   countOfToday = 0;
 
   init() {
-    this.getNome();
+    this.getInfo();
   }
 
-  getNome() {
+  getInfo() {
     this._storage.get('token').then((val) => {
       var decodedToken = this._jwtHelper.decodeToken(val);
-      if (decodedToken.user)
-        this.user = decodedToken.user;
+      if (decodedToken.user) {
+        this.userProvider.get(decodedToken.user._id).subscribe(
+          res => {
+            this.user = res.user;
+            this.user.car = new Car();
+            this.user.car.marca = res.user.marca;
+            this.user.car.modelo = res.user.modelo;
+            this.user.car.placa = res.user.placa;
+          },
+          error => {
+            var errorMsg = "";
 
-      this._transitProvider.list(this.user._id).subscribe(res => {
-        this.transits = res.data;
-        this.transits.forEach(item => {
-          item.img = 'data:image/jpeg;base64,' + item.img
+            if (error.error.text) {
+              errorMsg = error.error.text;
+            } else {
+              errorMsg = error.message;
+            }
+
+            let toast = this._toast.create({
+              message: errorMsg,
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+          })
+
+        this._transitProvider.list(this.user._id).subscribe(res => {
+          this.transits = res.data;
+          this.transits.forEach(item => {
+            item.img = 'data:image/jpeg;base64,' + item.img
+          })
+        }, error => {
+          console.log(error);
+          let toast = this._toast.create({
+            message: error.error.text,
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
         })
-      }, error => {
-        console.log(error);
-        let toast = this._toast.create({
-          message: error.error.text,
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
-      })
 
-      this._transitProvider.countOfToday(this.user._id).subscribe(res => {
-        this.countOfToday = res.data;
-      }, error => {
-        console.log(error);
-        let toast = this._toast.create({
-          message: error.error.text,
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
-      })
+        this._transitProvider.countOfToday(this.user._id).subscribe(res => {
+          this.countOfToday = res.data;
+        }, error => {
+          console.log(error);
+          let toast = this._toast.create({
+            message: error.error.text,
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
+        })
+      }
     });
   }
+
+  ionViewDidEnter() {
+    this.getInfo();
+}
 
   logout() {
     this._storage.clear();
