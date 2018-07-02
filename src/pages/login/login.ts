@@ -62,11 +62,6 @@ export class LoginPage {
       this.loginModel.password = "";
       this.loginModel.usertype = 1;
       this._storage.set('token', res.token).then(() => {
-        let toast = this._toast.create({
-          message: 'Autenticação realizada com sucesso! Bem vindo(a), ' + decodedToken.user.name,
-          duration: 3000,
-          position: 'bottom'
-        }).present();
         this.navCtrl.push(HomePage);
       });
     }, error => {
@@ -81,13 +76,11 @@ export class LoginPage {
       }
 
       let toast = this._toast.create({
-        message: errorMsg,
+        message: "Ocorreu um erro ao se comunicar com o servidor",
         duration: 3000,
         position: 'bottom'
       });
-      toast.present();
     })
-    loading.dismiss();
   }
 
   registerClick() {

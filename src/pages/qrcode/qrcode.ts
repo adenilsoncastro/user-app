@@ -18,8 +18,8 @@ export class QrcodePage {
     private _jwtHelper: JwtHelperService,
     private _storage: Storage,) {
     this._toast.create({
-      message: 'Apresente o QR code gerado para a câmera e aguarde a autenticação',
-      duration: 3000,
+      message: 'Posicione o aparelho na vertical, apresente o QR code gerado para a câmera e aguarde a autenticação',
+      duration: 4000,
       position: 'middle'
     }).present();
     this.init()

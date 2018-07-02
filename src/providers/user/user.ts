@@ -8,7 +8,7 @@ export class UserProvider {
   constructor(public http: HttpClient) { }
 
   register(user: User) {
-    return this.http.post<any>('http://localhost:8080/users/register', user);
+    return this.http.post<any>('http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/users/register', user);
   }
 
   update(user: User) {

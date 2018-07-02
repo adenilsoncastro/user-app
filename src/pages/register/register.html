@@ -47,7 +47,7 @@
             <ion-item class="register-input">
               <ion-input oninput="this.value = this.value != null ? this.value.toUpperCase() : this.value" class="input-field" placeholder="Placa do veículo"[(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>
             </ion-item>
-            <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está incorreta! Tente no formato ABC-1234</ion-label>
+            <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está incorreta! Tente no formato abc-1234</ion-label>
           </div>
         </ion-list>
 
