@@ -64,6 +64,7 @@ export class LoginPage {
       this._storage.set('token', res.token).then(() => {
         this.navCtrl.push(HomePage);
       });
+      loading.dismiss();
     }, error => {
       console.log(error);
 
@@ -80,6 +81,7 @@ export class LoginPage {
         duration: 3000,
         position: 'bottom'
       });
+      loading.dismiss();
     })
   }
 

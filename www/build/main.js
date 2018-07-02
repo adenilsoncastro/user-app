@@ -23,7 +23,8 @@ var LoginProvider = /** @class */ (function () {
         this.http = http;
     }
     LoginProvider.prototype.login = function (login) {
-        return this.http.post('http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
+        // return this.http.post<any>('http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
+        return this.http.post('http://localhost:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
     };
     LoginProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
@@ -110,6 +111,7 @@ var LoginPage = /** @class */ (function () {
             _this._storage.set('token', res.token).then(function () {
                 _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
             });
+            loading.dismiss();
         }, function (error) {
             console.log(error);
             var errorMsg = "";
@@ -124,6 +126,7 @@ var LoginPage = /** @class */ (function () {
                 duration: 3000,
                 position: 'bottom'
             });
+            loading.dismiss();
         });
     };
     LoginPage.prototype.registerClick = function () {
@@ -1174,7 +1177,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-content>\n\n  <div class="home-container">\n\n    <div class="home-user-info">\n\n      <div class="user-name-container">\n\n        <span class="home-user-welcome">Olá, {{user?.name}}\n\n        </span>\n\n      </div>\n\n      <div class="vehicle-info">\n\n        <span class="home-user-car-model">Veículo: {{user?.car?.modelo}}</span>\n\n        <span class="home-user-car-plate">Placa: {{user?.car?.placa}} </span>\n\n        <span class="home-user-car-usage">Você utilizou a cancela {{countOfToday}} vezes hoje.</span>\n\n      </div>\n\n    </div>\n\n    <div class="transit-container" *ngIf="transits">\n\n      <div class="row" *ngFor="let transit of transits">\n\n        <div class="col">{{transit.automaticBarrierId}}</div>\n\n        <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n\n        <div class="col">{{transit.date | date: \'long\' }}</div>\n\n        <div class="col">\n\n          <img src={{transit.img}} />\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <div class="action-button-container">\n\n      <button class="button-qrcode" (click)="QrCode()" ion-button>QRCode</button>\n\n      <button class="button-logout" (click)="logout()" ion-button>Logout</button>      \n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/'<ion-content>\n\n  <div class="home-container">\n\n    <div class="home-user-info">\n\n      <div class="user-name-container">\n\n        <span class="home-user-welcome">Olá, {{user?.name}}\n\n        </span>\n\n      </div>\n\n      <div class="vehicle-info">\n\n        <span class="home-user-car-model">Veículo: {{user?.car?.modelo}}</span>\n\n        <span class="home-user-car-plate">Placa: {{user?.car?.placa}} </span>\n\n        <span class="home-user-car-usage">Você utilizou a cancela {{countOfToday}} vezes hoje.</span>\n\n      </div>\n\n    </div>\n\n    <div class="transit-container" *ngIf="transits">\n\n      <div class="row" *ngFor="let transit of transits">\n\n        <div class="col">{{transit.automaticBarrierId}}</div>\n\n        <div class="col">{{transit.automaticBarrierLocatioName}}</div>\n\n        <div class="col">{{transit.date | date: \'long\' }}</div>\n\n        <div class="col">\n\n          <img src={{transit.img}} />\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <div class="action-button-container">\n\n      <button class="button-qrcode" (click)="QrCode()" ion-button>QRCode</button>\n\n      <button class="button-logout" (click)="alter()" ion-button>Alterar informações</button>   \n\n      <button class="button-logout" (click)="logout()" ion-button>Logout</button>      \n\n    </div>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\oluis\Desktop\TCC\user-app\user-app\src\pages\home\home.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_0__providers_transit_transit__["a" /* TransitProvider */], __WEBPACK_IMPORTED_MODULE_8__providers_user_user__["a" /* UserProvider */]],
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavController */],
