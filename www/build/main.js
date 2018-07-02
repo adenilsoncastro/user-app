@@ -427,11 +427,11 @@ var map = {
 		2
 	],
 	"../pages/qrcode/qrcode.module": [
-		309,
+		310,
 		1
 	],
 	"../pages/register/register.module": [
-		310,
+		309,
 		0
 	]
 };
@@ -761,8 +761,8 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/alter/alter.module#AlterPageModule', name: 'AlterPage', segment: 'alter', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/qrcode/qrcode.module#QrcodePageModule', name: 'QrcodePage', segment: 'qrcode', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/qrcode/qrcode.module#QrcodePageModule', name: 'QrcodePage', segment: 'qrcode', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
