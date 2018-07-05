@@ -32,14 +32,14 @@
             <ion-item class="register-input">
               <ion-input class="input-field" [(ngModel)]="user.passwordConfirmation" placeholder="Confirme a senha"formControlName="passwordConfirmation" type="password"></ion-input>
             </ion-item>
-            <ion-label *ngIf="form.controls['passwordConfirmation'].errors && form.controls['passwordConfirmation'].dirty" color="danger">Senha de confirmação está incorreta</ion-label>
+            <ion-label *ngIf="form.controls['passwordConfirmation'].errors && form.controls['passwordConfirmation'].dirty" color="danger">Senhas não conferem</ion-label>
           </div>
 
           <div class="car-info">
             <ion-item class="register-input">
               <ion-input class="input-field" placeholder="Marca do veículo"[(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>
             </ion-item>
-            <ion-label *ngIf="form.controls['marca'].errors && form.controls['marca'].dirty" color="danger"> A marca está incorreta</ion-label>
+            <ion-label *ngIf="form.controls['marca'].errors && form.controls['marca'].dirty" color="danger">A marca está incorreta</ion-label>
             <ion-item class="register-input">
               <ion-input class="input-field" placeholder="Modelo do veículo" [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>
             </ion-item>
@@ -47,7 +47,7 @@
             <ion-item class="register-input">
               <ion-input oninput="this.value = this.value != null ? this.value.toUpperCase() : this.value" class="input-field" placeholder="Placa do veículo"[(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>
             </ion-item>
-            <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está incorreta! Tente no formato abc-1234</ion-label>
+            <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está incorreta! Tente no formato ABC-1234</ion-label>
           </div>
         </ion-list>
 

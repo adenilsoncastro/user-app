@@ -50,6 +50,7 @@ export class LoginPage {
             position: 'bottom'
           }).present();
         });
+        loading.dismiss();
         return;
       }
 

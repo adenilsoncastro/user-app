@@ -25678,6 +25678,87 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+.update-container {
+  height: 100%;
+  width: 100%;
+  background-color: #222431;
+  position: absolute;
+  display: table;
+}
+
+.update-container .title-update {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+.update-container .title-update .title-container {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.update-container .title-update .title-container .title {
+  font-size: 25px;
+  color: #fff;
+}
+
+.update-container .update-form-container {
+  padding: 10px;
+  text-align: center;
+}
+
+.update-container .update-form-container .register-input {
+  border-radius: 10px !important;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  border-bottom-color: #fff !important;
+  background-color: initial;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #fff;
+}
+
+.update-container .update-form-container .register-input .item-inner {
+  border-bottom: 0px !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  text-align: center;
+}
+
+.update-container .update-form-container .register-input .item-inner .input-field .text-input {
+  text-align: center;
+}
+
+.update-container .button-update {
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  background: -webkit-gradient(linear, left top, right top, from(#03effe), to(#4eadfe));
+  background: linear-gradient(to right, #03effe, #4eadfe);
+}
+
+.update-container .button-go-back {
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 12px;
+  white-space: normal;
+  width: 100%;
+  height: 45px;
+  background: -webkit-gradient(linear, left top, right top, from(#03effe), to(#4eadfe));
+  background: linear-gradient(to right, #03effe, #4eadfe);
+}
+
+page-home .scroll-content {
+  overflow: hidden;
+}
+
 page-home .home-container {
   width: 100%;
   height: 100%;
@@ -25698,7 +25779,7 @@ page-home .home-container .home-user-info .user-name-container {
 }
 
 page-home .home-container .home-user-info .vehicle-info {
-  border: 0.1px solid #e4e4e4;
+  border: 0.8px solid #e4e4e4;
   border-radius: 5px;
   padding: 10px;
   margin-top: 40px;
@@ -25716,25 +25797,46 @@ page-home .home-container .home-user-info .home-user-welcome, page-home .home-co
   display: block;
 }
 
+page-home .home-container .transit-container {
+  padding: 10px;
+}
+
+page-home .home-container .transit-container .transit-line {
+  width: 100%;
+}
+
+page-home .home-container .transit-container .text-historic {
+  padding: 5px 0 5px 0 !important;
+  color: #fff;
+  font-size: 15px;
+}
+
 page-home .home-container .action-button-container {
   width: 100%;
+  height: 50px;
   text-align: center;
   position: absolute;
   bottom: 0;
-  margin-bottom: 10px;
+  background-color: #e4e4e4;
 }
 
-page-home .home-container .action-button-container .button-logout, page-home .home-container .action-button-container .button-qrcode {
-  border-radius: 5px;
-  height: 80px;
+page-home .home-container .action-button-container .col-user-action {
+  padding: 0;
+}
+
+page-home .home-container .action-button-container .button-logout, page-home .home-container .action-button-container .button-qrcode, page-home .home-container .action-button-container .button-profile {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: 50px;
   width: 100px;
-  background-color: #4eb8ce;
+  background-color: initial;
+  margin: 0;
 }
 
-page-home .home-container .action-button-container .button-logout .img-qrcode, page-home .home-container .action-button-container .button-qrcode .img-qrcode {
-  width: 80px;
-  height: 80px;
-  background: none;
+page-home .home-container .action-button-container .button-logout .img-action-button, page-home .home-container .action-button-container .button-qrcode .img-action-button, page-home .home-container .action-button-container .button-profile .img-action-button {
+  min-width: 30px;
+  min-height: 30px;
+  background: initial;
 }
 
 page-login .scroll-content {

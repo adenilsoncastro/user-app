@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Storage } from "@ionic/storage";
 import { Car } from '../../models/car';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,8 @@ export class AlterPage {
         private _jwtHelper: JwtHelperService,
         private toast: ToastController,
         private fb: FormBuilder,
-        private userProvider: UserProvider) {
+        private userProvider: UserProvider,
+        public loadingCtrl: LoadingController) {
 
         this.form = this.fb.group({
             name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
@@ -41,11 +43,18 @@ export class AlterPage {
     }
 
     init() {
+        let loading = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: 'Aguarde...'
+          });
+      
+        loading.present();
         this._storage.get('token').then((val) => {
             var decodedToken = this._jwtHelper.decodeToken(val);
             if (decodedToken.user) {
                 this.userProvider.get(decodedToken.user._id).subscribe(
                     res => {
+                        loading.dismiss();
                         this.user = res.user;
                         this.user.car = new Car();
                         this.user.car.marca = res.user.marca;
@@ -53,6 +62,7 @@ export class AlterPage {
                         this.user.car.placa = res.user.placa;
                     },
                     error => {
+                        loading.dismiss();
                         var errorMsg = "";
 
                         if (error.error.text) {
@@ -62,7 +72,7 @@ export class AlterPage {
                         }
 
                         let toast = this.toast.create({
-                            message: errorMsg,
+                            message: "Ocorreu um erro na comunicação com o servidor",
                             duration: 3000,
                             position: 'bottom'
                         });
@@ -79,9 +89,16 @@ export class AlterPage {
     }
 
     alterClick() {
+        let loading = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: 'Aguarde...'
+          });
+      
+        loading.present();
         this.user.usertype = 1;
         this.userProvider.update(this.user).subscribe(res => {
             if (res.success == false) {
+                loading.dismiss();
                 res.error.forEach(element => {
                     this.toast.create({
                         message: element.msg,
@@ -91,6 +108,7 @@ export class AlterPage {
                 });
 
             } else {
+                loading.dismiss();
                 this.toast.create({
                     message: 'Usuário alterado com sucesso',
                     duration: 3000,
@@ -102,8 +120,9 @@ export class AlterPage {
             }
             console.log(res);
         }, error => {
+            loading.dismiss();
             this.toast.create({
-                message: error.error.text,
+                message: "Ocorreu um erro na comunicação com o servidor",
                 duration: 3000,
                 position: 'bottom'
             }).present();

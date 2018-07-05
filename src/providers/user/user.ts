@@ -1,21 +1,32 @@
 import { User } from './../../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BaseProvider } from '../baseprovider';
 
 @Injectable()
-export class UserProvider {
+export class UserProvider extends BaseProvider {
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+    super(http, null);
+  }
 
   register(user: User) {
-    return this.http.post<any>('http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/users/register', user);
+    return this.http.post<any>(this.url +'users/register', user);
   }
 
   update(user: User) {
-    return this.http.post<any>('http://localhost:8080/users/update', user);
+    return this.http.post<any>(this.url + 'users/update', user);
   }
 
   get(id) {
-    return this.http.get<any>('http://localhost:8080/users/' + id);
+    return this.http.get<any>(this.url +'users/' + id);
   }
+
+  // update(user: User) {
+  //   return this.http.post<any>('http://localhost:8080/users/update', user);
+  // }
+
+  // get(id) {
+  //   return this.http.get<any>('http://localhost:8080/users/' + id);
+  // }
 }

@@ -1,31 +1,45 @@
 <ion-content>
   <div class="home-container">
-    <div class="home-user-info">
-      <div class="user-name-container">
-        <span class="home-user-welcome">Olá, {{user?.name}}
-        </span>
+    <div>
+      <div class="home-user-info">
+        <div class="user-name-container">
+          <span class="home-user-welcome">Olá, {{user?.name}}
+          </span>
+        </div>
+        <div class="vehicle-info">
+          <span class="home-user-car-model">Veículo: {{user?.car?.modelo}}</span>
+          <span class="home-user-car-plate">Placa: {{user?.car?.placa}} </span>
+          <span class="home-user-car-usage">Você utilizou a cancela {{countOfToday}} vezes hoje.</span>
+        </div>
       </div>
-      <div class="vehicle-info">
-        <span class="home-user-car-model">Veículo: {{user?.car?.modelo}}</span>
-        <span class="home-user-car-plate">Placa: {{user?.car?.placa}} </span>
-        <span class="home-user-car-usage">Você utilizou a cancela {{countOfToday}} vezes hoje.</span>
-      </div>
-    </div>
-    <div class="transit-container" *ngIf="transits">
-      <div class="row" *ngFor="let transit of transits">
-        <div class="col">{{transit.automaticBarrierId}}</div>
-        <div class="col">{{transit.automaticBarrierLocatioName}}</div>
-        <div class="col">{{transit.date | date: 'long' }}</div>
-        <div class="col">
-          <img src={{transit.img}} />
+      <div class="transit-info" style="overflow-y: auto; max-height: -webkit-fill-available">
+        <div class="transit-container" style="height: 0px; padding-bottom: 95%" *ngIf="transits">
+          <div class="row transit-line" *ngFor="let transit of transits">
+            <div class="col text-historic">{{transit.automaticBarrierLocatioName}}</div>
+            <div class="col text-historic">{{transit.date | date: 'medium' }}</div>
+            <div class="col text-historic">
+              <img src={{transit.img}} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="action-button-container">
-      <button class="button-qrcode" (click)="QrCode()" ion-button>QRCode</button>
-      <button class="button-logout" (click)="alter()" ion-button>Alterar informações</button>   
-      <button class="button-logout" (click)="logout()" ion-button>Logout</button>      
+    <div class="row action-button-container">
+      <div class="col col-user-action">
+        <button class="button-qrcode" (click)="QrCode()" ion-button>
+          <ion-img class="img-action-button" src="assets/imgs/qr-code.png"></ion-img>
+        </button>
+      </div>
+      <div class="col col-user-action">
+        <button class="button-profile" (click)="alter()" ion-button>
+          <ion-img class="img-action-button" src="assets/imgs/user.png"></ion-img>
+        </button>
+      </div>
+      <div class="col col-user-action">
+        <button class="button-logout" (click)="logout()" ion-button>
+          <ion-img class="img-action-button" src="assets/imgs/logout.png"></ion-img>
+        </button>
+      </div>
     </div>
   </div>
 </ion-content>

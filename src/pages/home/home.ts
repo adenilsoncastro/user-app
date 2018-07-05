@@ -48,6 +48,7 @@ export class HomePage {
             this.user.car.marca = res.user.marca;
             this.user.car.modelo = res.user.modelo;
             this.user.car.placa = res.user.placa;
+            this.user.name = this.user.name.split(' ')[0];
           },
           error => {
             var errorMsg = "";
@@ -59,7 +60,7 @@ export class HomePage {
             }
 
             let toast = this._toast.create({
-              message: errorMsg,
+              message: "Ocorreu um erro na comunicação com o servidor",
               duration: 3000,
               position: 'bottom'
             });
@@ -83,22 +84,26 @@ export class HomePage {
 
         this._transitProvider.countOfToday(this.user._id).subscribe(res => {
           this.countOfToday = res.data;
+
+          if (res.data == null)
+            this.countOfToday = 0;
+
         }, error => {
-          console.log(error);
-          let toast = this._toast.create({
-            message: error.error.text,
-            duration: 3000,
-            position: 'bottom'
-          });
-          toast.present();
-        })
+            console.log(error);
+            let toast = this._toast.create({
+              message: error.error.text,
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+          })
       }
     });
   }
 
   ionViewDidEnter() {
     this.getInfo();
-}
+  }
 
   logout() {
     this._storage.clear();

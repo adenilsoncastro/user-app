@@ -42,11 +42,11 @@ export class RegisterPage {
   }
 
   registerClick() {
-    this.userProvider.register(this.user).subscribe(res => {
-      let loading = this.loadingCtrl.create({
-        spinner: 'dots',
-        content: 'Aguarde...'
-      });
+    let loading = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: 'Aguarde...'
+    });
+    this.userProvider.register(this.user).subscribe(res => {      
 
       loading.present();
 

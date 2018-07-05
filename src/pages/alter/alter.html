@@ -1,77 +1,65 @@
-<ion-header>
-
-    <ion-navbar>
-      <ion-title>Meus dados</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-  
-  <ion-content padding>
-    <form [formGroup]="form">
-      <ion-list>
-        <div class="user-info">
-          <div class="user-info-title">
-            <span>Informações do Usuário</span>
-          </div>
-          <ion-item>
-            <ion-label>Nome</ion-label>
-            <ion-input [(ngModel)]="user.name" formControlName="name" type="text"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['name'].errors && form.controls['name'].dirty" color="danger">O Nome é obrigatório</ion-label>
-  
-          <ion-item>
-            <ion-label>E-Mail</ion-label>
-            <ion-input [(ngModel)]="user.email" formControlName="email" type="email"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['email'].errors && form.controls['email'].dirty" color="danger">O Email está incorreto</ion-label>
-  
-          <ion-item>
-            <ion-label>Login</ion-label>
-            <ion-input [(ngModel)]="user.username" formControlName="username" type="text" disabled></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['username'].errors && form.controls['username'].dirty" color="danger">O Nome de usuário inválido</ion-label>
-  
-          <ion-item>
-            <ion-label>Senha</ion-label>
-            <ion-input [(ngModel)]="user.password" formControlName="password" type="password"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['password'].errors && form.controls['password'].dirty" color="danger"> E-mail está incorreto </ion-label>
-  
-          <ion-item>
-            <ion-label>Confirmar Senha</ion-label>
-            <ion-input [(ngModel)]="user.passwordConfirmation" formControlName="passwordConfirmation" type="password"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['passwordConfirmation'].errors && form.controls['passwordConfirmation'].dirty" color="danger">Senha de confirmação está inválida</ion-label>
-        </div>
-  
-        <div class="car-info">
-          <div class="car-info-title">
-            <span>Informações do Veículo</span>
-          </div>
-          <ion-item>
-            <ion-label>Marca</ion-label>
-            <ion-input [(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['marca'].errors && form.controls['marca'].dirty" color="danger"> A marca está incorreto</ion-label>
-  
-          <ion-item>
-            <ion-label>Modelo</ion-label>
-            <ion-input [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['modelo'].errors && form.controls['modelo'].dirty" color="danger">O modelo está incorreto</ion-label>
-  
-          <ion-item>
-            <ion-label>Placa</ion-label>
-            <ion-input oninput="this.value = this.value != null ? this.value.toUpperCase() : this.value" [(ngModel)]="user.car.placa" formControlName="placa" type="text"></ion-input>
-          </ion-item>
-          <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está inválida</ion-label>
-        </div>
-      </ion-list>
-  
-      <div padding>
-        <button [disabled]="!form.valid || !comparePasswords()" (click)="alterClick()" ion-button>Alterar</button>
-        <button (click)="goBackClick()" ion-button>Voltar</button>
+<ion-content>
+  <div class="update-container">
+    <div class="title-update">
+      <div class="title-container">
+        <span class="title">Atualizar dados</span>
       </div>
-    </form>
-  </ion-content>
-  
+    </div>
+    <div class="update-form-container">
+      <form [formGroup]="form">
+        <ion-list>
+          <div class="user-info">
+            <ion-item class="register-input">
+              <ion-input class="input-field" [(ngModel)]="user.name" formControlName="name" type="text"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['name'].errors && form.controls['name'].dirty" color="danger">O Nome é obrigatório</ion-label>
+
+            <ion-item class="register-input">
+              <ion-input class="input-field" [(ngModel)]="user.email" formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['email'].errors && form.controls['email'].dirty" color="danger">O E-mail está incorreto</ion-label>
+
+            <ion-item class="register-input">
+              <ion-input class="input-field" [(ngModel)]="user.username" formControlName="username" type="text" disabled></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['username'].errors && form.controls['username'].dirty" color="danger">Login inválido</ion-label>
+
+            <ion-item class="register-input">
+              <ion-input class="input-field" [(ngModel)]="user.password" formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['password'].errors && form.controls['password'].dirty" color="danger">Senha incorreta</ion-label>
+
+            <ion-item class="register-input">
+              <ion-input class="input-field" placeholder="Confirme a senha" [(ngModel)]="user.passwordConfirmation" formControlName="passwordConfirmation"
+                type="password"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['passwordConfirmation'].errors && form.controls['passwordConfirmation'].dirty" color="danger">Senhas não conferem</ion-label>
+          </div>
+
+          <div class="car-info">
+            <ion-item class="register-input">
+              <ion-input class="input-field" [(ngModel)]="user.car.marca" formControlName="marca" type="text"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['marca'].errors && form.controls['marca'].dirty" color="danger">A marca está incorreta</ion-label>
+
+            <ion-item class="register-input">
+              <ion-input class="input-field" [(ngModel)]="user.car.modelo" formControlName="modelo" type="text"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['modelo'].errors && form.controls['modelo'].dirty" color="danger">O modelo está incorreto</ion-label>
+
+            <ion-item class="register-input">
+              <ion-input class="input-field" oninput="this.value = this.value != null ? this.value.toUpperCase() : this.value" [(ngModel)]="user.car.placa"
+                formControlName="placa" type="text"></ion-input>
+            </ion-item>
+            <ion-label *ngIf="form.controls['placa'].errors && form.controls['placa'].dirty" color="danger">A placa está incorreta! Tente no formato ABC-1234</ion-label>
+          </div>
+        </ion-list>
+
+        <div>
+          <button class="button-update" [disabled]="!form.valid || !comparePasswords()" (click)="alterClick()" ion-button>Alterar</button>
+          <button class="button-go-back" (click)="goBackClick()" ion-button>Voltar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>
