@@ -4,16 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BaseProvider } from '../baseprovider';
 
 @Injectable()
-export class LoginProvider {
+export class LoginProvider extends BaseProvider{
 
-  constructor(public http: HttpClient) { }
-
-  login(login: LoginModel) {
-    // return this.http.post<any>('http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
-    return this.http.post<any>('http://localhost:8080/users/login', { username: login.username, password: login.password, usertype: login.usertype });
+  constructor(public http: HttpClient) { 
+    super(http, null);
   }
-  
 
+  login(login: LoginModel) {    
+    return this.http.post<any>(this.url + 'users/login', { username: login.username, password: login.password, usertype: login.usertype });
+  }
 }
