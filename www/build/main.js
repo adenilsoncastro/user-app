@@ -140,7 +140,7 @@ var LoginPage = /** @class */ (function () {
                 message: "Ocorreu um erro ao se comunicar com o servidor",
                 duration: 3000,
                 position: 'bottom'
-            });
+            }).present();
             loading.dismiss();
         });
     };
@@ -232,8 +232,9 @@ var RegisterPage = /** @class */ (function () {
             spinner: 'dots',
             content: 'Aguarde...'
         });
+        loading.present();
         this.userProvider.register(this.user).subscribe(function (res) {
-            loading.present();
+            loading.dismiss();
             if (res.success == false) {
                 res.error.forEach(function (element) {
                     _this.toast.create({
@@ -254,7 +255,6 @@ var RegisterPage = /** @class */ (function () {
                 });
             }
             console.log(res);
-            loading.dismiss();
         }, function (error) {
             loading.dismiss();
             _this.toast.create({
