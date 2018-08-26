@@ -14,7 +14,6 @@ export class TransitProvider extends BaseProvider {
     super(http, _storage);
   }
 
-
   private getAuthHeaders() {
     return Observable.fromPromise(this._storage.get('token'));
   }

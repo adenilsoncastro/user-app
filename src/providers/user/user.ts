@@ -15,18 +15,10 @@ export class UserProvider extends BaseProvider {
   }
 
   update(user: User) {
-    return this.http.post<any>(this.url + 'users/update', user);
+    return this.http.put<any>(this.url + 'users/update', user);
   }
 
   get(id) {
     return this.http.get<any>(this.url +'users/' + id);
   }
-
-  // update(user: User) {
-  //   return this.http.post<any>('http://localhost:8080/users/update', user);
-  // }
-
-  // get(id) {
-  //   return this.http.get<any>('http://localhost:8080/users/' + id);
-  // }
 }
