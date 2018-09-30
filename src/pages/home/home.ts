@@ -70,7 +70,8 @@ export class HomePage {
         this._transitProvider.list(this.user._id).subscribe(res => {
           this.transits = res.data;
           this.transits.forEach(item => {
-            item.img = 'data:image/jpeg;base64,' + item.img
+            if(item.img != null)
+              item.img = 'data:image/jpeg;base64,' + item.img
           })
         }, error => {
           console.log(error);

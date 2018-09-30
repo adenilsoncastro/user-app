@@ -31,7 +31,7 @@ export class RegisterPage {
       passwordConfirmation: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
       marca: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
       modelo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]],
-      placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8), Validators.pattern(/[A-Z]{3}-?\d{4}/)]],
+      placa: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8), Validators.pattern(/[A-Z]{3}-\d{4}/)]],
     })
   }
 

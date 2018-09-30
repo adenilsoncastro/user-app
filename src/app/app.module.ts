@@ -1,3 +1,5 @@
+import { QrcodePageModule } from './../pages/qrcode/qrcode.module';
+import { RegisterPageModule } from './../pages/register/register.module';
 import { AlterPageModule } from './../pages/alter/alter.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginPage } from './../pages/login/login';
@@ -19,6 +21,7 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { TransitProvider } from '../providers/transit/transit';
 import { CommonModule } from '@angular/common';
 import { AlterPage } from '../pages/alter/alter';
+import { LoginPageModule } from '../pages/login/login.module';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -28,9 +31,9 @@ export function tokenGetter() {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
-    RegisterPage,
-    QrcodePage,
+    // LoginPage,
+    // RegisterPage,
+    // QrcodePage,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,10 @@ export function tokenGetter() {
       }
     }),
     HttpClientModule,
+    QrcodePageModule,
     IonicStorageModule,
+    LoginPageModule,
+    RegisterPageModule,
     QRCodeModule,
     AlterPageModule,
     CommonModule
