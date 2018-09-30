@@ -81,7 +81,7 @@ export class LoginPage {
         message: "Ocorreu um erro ao se comunicar com o servidor",
         duration: 3000,
         position: 'bottom'
-      });
+      }).present();
       loading.dismiss();
     })
   }

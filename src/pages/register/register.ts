@@ -46,10 +46,9 @@ export class RegisterPage {
       spinner: 'dots',
       content: 'Aguarde...'
     });
-    this.userProvider.register(this.user).subscribe(res => {      
-
-      loading.present();
-
+    loading.present();
+    this.userProvider.register(this.user).subscribe(res => {    
+      loading.dismiss();
       if (res.success == false) {
         res.error.forEach(element => {
           this.toast.create({
@@ -70,7 +69,6 @@ export class RegisterPage {
           });
       }
       console.log(res);
-      loading.dismiss();
     }, error => {
       loading.dismiss();
       this.toast.create({
