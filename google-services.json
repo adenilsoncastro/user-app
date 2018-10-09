@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "996441861974",
+    "firebase_url": "https://user-app-5c3ae.firebaseio.com",
+    "project_id": "user-app-5c3ae",
+    "storage_bucket": "user-app-5c3ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996441861974:android:a36ca07258efeafb",
+        "android_client_info": {
+          "package_name": "cancela.automatica.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996441861974-4comualhrma9dfalauuflrm8e20t5o29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCq488SKa0xaCezMdF8q3y-4lh67sma7I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import { Firebase } from '@ionic-native/firebase';
 import { QrcodePageModule } from './../pages/qrcode/qrcode.module';
 import { RegisterPageModule } from './../pages/register/register.module';
 import { AlterPageModule } from './../pages/alter/alter.module';
@@ -22,10 +23,22 @@ import { TransitProvider } from '../providers/transit/transit';
 import { CommonModule } from '@angular/common';
 import { AlterPage } from '../pages/alter/alter';
 import { LoginPageModule } from '../pages/login/login.module';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { FcmProvider } from '../providers/fcm-provider';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
+var config = {
+  apiKey: "AIzaSyAq2fNja3CX-ywc-twJHRtmwvBAaOsU1wc",
+  authDomain: "user-app-5c3ae.firebaseapp.com",
+  databaseURL: "https://user-app-5c3ae.firebaseio.com",
+  projectId: "user-app-5c3ae",
+  storageBucket: "user-app-5c3ae.appspot.com",
+  messagingSenderId: "996441861974"
+};
 
 @NgModule({
   declarations: [
@@ -53,7 +66,9 @@ export function tokenGetter() {
     RegisterPageModule,
     QRCodeModule,
     AlterPageModule,
-    CommonModule
+    CommonModule,
+    AngularFireModule.initializeApp(config), 
+    AngularFirestoreModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -69,6 +84,9 @@ export function tokenGetter() {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoginProvider,
     TransitProvider,
+    AngularFirestore,
+    Firebase,
+    FcmProvider,
   ]
 })
 export class AppModule { }

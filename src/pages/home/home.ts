@@ -11,6 +11,7 @@ import { ToastController } from 'ionic-angular';
 import { AlterPage } from '../alter/alter';
 import { UserProvider } from '../../providers/user/user';
 import { Car } from '../../models/car';
+import { FcmProvider } from '../../providers/fcm-provider';
 
 @Component({
   selector: 'page-home',
@@ -25,7 +26,8 @@ export class HomePage {
     private _jwtHelper: JwtHelperService,
     private _transitProvider: TransitProvider,
     private _toast: ToastController,
-    private userProvider: UserProvider) {
+    private userProvider: UserProvider,
+    public fcm: FcmProvider) {
     this.init();
   }
 
@@ -35,6 +37,17 @@ export class HomePage {
 
   init() {
     this.getInfo();
+  }
+  
+  getToken(){
+    this.fcm.getToken().then(result => {
+      let toast = this._toast.create({
+        message: result,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+    });
   }
 
   getInfo() {
