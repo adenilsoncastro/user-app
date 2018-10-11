@@ -627,7 +627,7 @@ var FcmProvider = /** @class */ (function (_super) {
                             _this.firebaseNative.getToken().then(function (token) {
                                 console.log("token...", token);
                             }).catch(function (error) { return console.log(error); });
-                            _this.http.post(_this.url + 'notification/store', { 'token': 'token', 'userId': 'teste' })
+                            _this.http.post(_this.url + 'notification/store', { 'token': token, 'userId': decodedToken.user._id })
                                 .subscribe(function (data) {
                                 console.log(JSON.stringify(data));
                             }, function (error) {

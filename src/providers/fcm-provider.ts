@@ -34,7 +34,7 @@ export class FcmProvider extends BaseProvider {
                 console.log("token...", token)
             }).catch(error => console.log(error));
 
-            this.http.post(this.url + 'notification/store', { 'token': 'token', 'userId': 'teste' })
+            this.http.post(this.url + 'notification/store', { 'token': token, 'userId': decodedToken.user._id })
                 .subscribe(data => {
                     console.log(JSON.stringify(data));
                 }, error => {
