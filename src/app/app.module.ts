@@ -32,12 +32,7 @@ export function tokenGetter() {
 }
 
 var config = {
-  apiKey: "AIzaSyAq2fNja3CX-ywc-twJHRtmwvBAaOsU1wc",
-  authDomain: "user-app-5c3ae.firebaseapp.com",
-  databaseURL: "https://user-app-5c3ae.firebaseio.com",
-  projectId: "user-app-5c3ae",
-  storageBucket: "user-app-5c3ae.appspot.com",
-  messagingSenderId: "996441861974"
+  
 };
 
 @NgModule({
