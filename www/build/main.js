@@ -354,6 +354,7 @@ var HomePage = /** @class */ (function () {
     }
     HomePage.prototype.init = function () {
         this.getInfo();
+        this.getToken();
     };
     HomePage.prototype.getToken = function () {
         var _this = this;
@@ -607,10 +608,8 @@ var FcmProvider = /** @class */ (function (_super) {
         _this._storage = _storage;
         _this._jwtHelper = _jwtHelper;
         _this.http = http;
-        console.log('Hello FcmProvider Provider');
         return _this;
     }
-    // Get permission from the user
     FcmProvider.prototype.getToken = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
@@ -624,9 +623,6 @@ var FcmProvider = /** @class */ (function (_super) {
                             var decodedToken = _this._jwtHelper.decodeToken(val);
                             _this.firebaseNative.onTokenRefresh()
                                 .subscribe(function (token) { return console.log("Got a new token " + token); });
-                            _this.firebaseNative.getToken().then(function (token) {
-                                console.log("token...", token);
-                            }).catch(function (error) { return console.log(error); });
                             _this.http.post(_this.url + 'notification/store', { 'token': token, 'userId': decodedToken.user._id })
                                 .subscribe(function (data) {
                                 console.log(JSON.stringify(data));
@@ -640,9 +636,7 @@ var FcmProvider = /** @class */ (function (_super) {
             });
         });
     };
-    // Listen to incoming FCM messages
     FcmProvider.prototype.listenToNotifications = function () {
-        debugger;
         return this.firebaseNative.onNotificationOpen();
     };
     FcmProvider = __decorate([
@@ -1356,7 +1350,7 @@ var MyApp = /** @class */ (function () {
         this.platform.ready().then(function () {
             _this.statusBar.styleDefault();
             _this.splashScreen.hide();
-            fcm.getToken();
+            // fcm.getToken();
             fcm.listenToNotifications().pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__["tap"])(function (msg) {
                 var toast = toastCtrl.create({
                     message: msg.body,
@@ -1477,8 +1471,8 @@ var BaseProvider = /** @class */ (function () {
     function BaseProvider(http, _storage) {
         this.http = http;
         this._storage = _storage;
-        // url: String = "http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/";
-        this.url = "http://localhost:8080/";
+        this.url = "http://ec2-54-218-220-67.us-west-2.compute.amazonaws.com:8080/";
+        // url: String = "http://localhost:8080/";
         this.baseUrl = (location.hostname === "localhost") ? 'http://localhost:8080/' : 'http://app.com/api/';
     }
     BaseProvider.prototype.getToken = function () {

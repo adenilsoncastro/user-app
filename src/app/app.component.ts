@@ -30,7 +30,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      fcm.getToken();
+      // fcm.getToken();
 
       fcm.listenToNotifications().pipe(
         tap(msg => {

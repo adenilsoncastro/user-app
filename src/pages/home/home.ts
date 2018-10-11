@@ -37,6 +37,7 @@ export class HomePage {
 
   init() {
     this.getInfo();
+    this.getToken();
   }
   
   getToken(){

@@ -15,10 +15,8 @@ export class FcmProvider extends BaseProvider {
         private _jwtHelper: JwtHelperService,
         public http: HttpClient) {
         super(http, _storage);
-        console.log('Hello FcmProvider Provider');
     }
 
-    // Get permission from the user
     async getToken() {
         let token;
         token = await this.firebaseNative.getToken();
@@ -29,10 +27,6 @@ export class FcmProvider extends BaseProvider {
             
             this.firebaseNative.onTokenRefresh()
                 .subscribe((token: string) => console.log(`Got a new token ${token}`));
-
-            this.firebaseNative.getToken().then(token => {
-                console.log("token...", token)
-            }).catch(error => console.log(error));
 
             this.http.post(this.url + 'notification/store', { 'token': token, 'userId': decodedToken.user._id })
                 .subscribe(data => {
@@ -45,9 +39,7 @@ export class FcmProvider extends BaseProvider {
         return token;
     }
 
-    // Listen to incoming FCM messages
     listenToNotifications() {
-        debugger
         return this.firebaseNative.onNotificationOpen()
     }
 }
